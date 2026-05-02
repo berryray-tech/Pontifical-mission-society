@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>About Us | Pontifical Mission Society - Missionary Arms</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Swiper CSS for Slideshow -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
+      color: #f0f3f8;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,215,150,0.5); border-radius: 10px; }
+
+    .navbar {
+      background: rgba(10, 25, 30, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, #FFE6B0, #FFC97E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .logo-icon { font-size: 1.8rem; color: #FFD966; margin-right: 8px; }
+    .nav-link { color: rgba(255,248,225,0.9) !important; font-weight: 500; margin: 0 6px; transition: 0.3s; }
+    .nav-link:hover, .nav-link.active { color: #FFD966 !important; transform: translateY(-2px); }
+
+    .about-header {
+      position: relative;
+      padding: 160px 0 100px;
+      text-align: center;
+      background: radial-gradient(circle at 20% 30%, rgba(255,215,130,0.08), transparent 70%);
+    }
+    .glass-title {
+      background: rgba(20, 40, 48, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 3rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      display: inline-block;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+    .glass-title h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF6E0, #FFDA88);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .glass-title p { font-size: 1.2rem; opacity: 0.9; }
+
+    .section-glass { padding: 70px 20px; }
+    .glass-card-deep {
+      background: rgba(25, 45, 55, 0.5);
+      backdrop-filter: blur(14px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      transition: 0.4s;
+      height: 100%;
+    }
+    .glass-card-deep:hover {
+      transform: translateY(-6px);
+      border-color: #FFD966;
+      background: rgba(35, 60, 72, 0.65);
+    }
+    .card-inner { padding: 2rem 1.8rem; }
+    .icon-glow { font-size: 2.8rem; color: #FFD966; margin-bottom: 1.2rem; }
+
+    /* Arm Card - Clickable with Hover Effect */
+    .arm-card {
+      background: rgba(20, 40, 48, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border: 1px solid rgba(255,215,140,0.3);
+      cursor: pointer;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .arm-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 1.5rem;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255,217,102,0), rgba(255,217,102,0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: 0.4s;
+      pointer-events: none;
+    }
+    .arm-card:hover::before {
+      background: linear-gradient(135deg, #FFD966, #FFB347, #FFD966);
+      background-size: 200% 200%;
+      animation: borderGlow 1.5s ease infinite;
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .arm-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: #FFD966;
+      background: rgba(35, 65, 78, 0.8);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+    }
+    .arm-icon-large {
+      width: 90px;
+      height: 90px;
+      background: rgba(255,217,102,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 2.5rem;
+      color: #FFD966;
+      border: 2px solid rgba(255,215,150,0.5);
+      transition: transform 0.3s;
+    }
+    .arm-card:hover .arm-icon-large {
+      transform: scale(1.1);
+      background: rgba(255,217,102,0.4);
+    }
+    .arm-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #FFD966;
+      margin-bottom: 0.5rem;
+    }
+    .arm-card p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+    }
+
+    .value-badge {
+      background: rgba(255,215,130,0.2);
+      border-radius: 60px;
+      padding: 0.5rem 1.2rem;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    footer {
+      background: rgba(5, 20, 25, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,210,130,0.2);
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(145deg, #FFE2A4, #FFC569);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    /* Modal Styling */
+    .modal-content {
+      background: rgba(20, 40, 48, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid #FFD966;
+      border-radius: 1.5rem;
+      color: white;
+    }
+    .modal-header {
+      border-bottom-color: rgba(255,217,102,0.3);
+    }
+    .btn-outline-gold {
+      border: 1px solid #FFD966;
+      background: transparent;
+      color: #FFD966;
+      border-radius: 40px;
+      padding: 8px 28px;
+      transition: 0.25s;
+    }
+    .btn-outline-gold:hover {
+      background: #FFD966;
+      color: #1e2f38;
+    }
+    
+    /* Portrait Slideshow Styling */
+    .portrait-swiper {
+      width: 100%;
+      padding: 20px 0 50px;
+    }
+    .portrait-swiper .swiper-slide {
+      background: rgba(25, 45, 55, 0.4);
+      backdrop-filter: blur(8px);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,230,170,0.2);
+      text-align: center;
+      padding: 1rem;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .portrait-swiper .swiper-slide:hover {
+      border-color: #FFD966;
+      background: rgba(35, 65, 78, 0.7);
+      transform: translateY(-5px);
+    }
+    .portrait-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 0.8rem;
+      margin-bottom: 0.8rem;
+      transition: transform 0.5s ease;
+    }
+    .portrait-swiper .swiper-slide:hover .portrait-image {
+      transform: scale(1.02);
+    }
+    .portrait-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #FFE2A4;
+      margin-bottom: 0.2rem;
+      transition: all 0.3s;
+    }
+    .portrait-position {
+      font-size: 0.7rem;
+      color: #FFD966;
+      font-weight: 500;
+      opacity: 0.9;
+      transition: all 0.3s;
+    }
+    /* Hover overlay for additional info */
+    .portrait-overlay-hover {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.9), transparent);
+      padding: 1rem 0.5rem 0.8rem;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      border-radius: 0 0 1rem 1rem;
+    }
+    .portrait-swiper .swiper-slide:hover .portrait-overlay-hover {
+      transform: translateY(0);
+    }
+    .portrait-desc {
+      font-size: 0.65rem;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.1s;
+      color: #FFE2A4;
+    }
+    .portrait-swiper .swiper-slide:hover .portrait-desc {
+      opacity: 1;
+    }
+    
+    .swiper-button-next, .swiper-button-prev {
+      color: #FFD966;
+      background: rgba(0,0,0,0.5);
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 1rem;
+    }
+    .swiper-pagination-bullet {
+      background: rgba(255,255,255,0.5);
+    }
+    .swiper-pagination-bullet-active {
+      background: #FFD966;
+    }
+    
+    /* YOMM Section inside SPF */
+    .yomm-inner-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid rgba(255,215,150,0.3);
+    }
+    .yomm-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FFD966;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .yomm-subtitle {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #FFE2A4;
+      margin: 1.5rem 0 1rem;
+    }
+    .yomm-view-more {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+      .glass-title h1 { font-size: 2.2rem; }
+      .section-glass { padding: 50px 15px; }
+      .arm-icon-large { width: 70px; height: 70px; font-size: 2rem; }
+      .portrait-name { font-size: 0.7rem; }
+      .portrait-position { font-size: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="fas fa-church logo-icon"></i>
+      <span>Pontifical Mission Society</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html"><i class="fas fa-heart me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="animators.html"><i class="fas fa-users me-1"></i>Animators</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fas fa-hands-helping me-1"></i>Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html"><i class="fas fa-newspaper me-1"></i>News</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ABOUT PAGE HERO -->
+<div class="about-header">
+  <div class="container">
+    <div class="glass-title" data-aos="fade-up">
+      <h1>The Missionary Arms</h1>
+      <p>United in mission, spreading the Gospel worldwide</p>
+      <div class="mt-4"><i class="fas fa-cross" style="color:#FFD966; font-size: 1.8rem;"></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSIONARY ARMS SELECTION CARDS (4 Arms) -->
+<section class="section-glass">
+  <div class="container">
+    <div class="row g-4" id="armsCardsContainer"></div>
+  </div>
+</section>
+
+<!-- CORE VALUES SECTION -->
+<section class="section-glass">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="value-badge"><i class="fas fa-gem me-2"></i>OUR FOUNDATION</span>
+      <h2 style="font-weight: 700;">Core Values That Define Us</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-card-deep text-center">
+          <div class="card-inner">
+            <i class="fas fa-praying-hands icon-glow"></i>
+            <h5>Prayer and Sacrifice</h5>
+            <p class="small">Praying for missionary work and assisting mission territories.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-card-deep text-center">
+          <div class="card-inner">
+            <i class="fas fa-hand-holding-usd icon-glow"></i>
+            <h5>Raising Funds</h5>
+            <p class="small">Universal Solidarity Fund for mission churches worldwide.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-card-deep text-center">
+          <div class="card-inner">
+            <i class="fas fa-chalkboard-user icon-glow"></i>
+            <h5>Formation</h5>
+            <p class="small">Missionary formation for children, youth, and adults.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="glass-card-deep text-center">
+          <div class="card-inner">
+            <i class="fas fa-church icon-glow"></i>
+            <h5>Supporting Leaders</h5>
+            <p class="small">Forming local priests, religious, and lay catechists.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><i class="fas fa-cross me-1"></i> © 2026 Pontifical Mission Society · Spreading the Gospel Worldwide</p>
+  <p style="opacity:0.7;">Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by BerryRay Technologies</p>
+</footer>
+
+<!-- ============================================ -->
+<!-- MODAL FOR ARM DETAILS WITH DEDICATED SLIDESHOWS -->
+<!-- ============================================ -->
+<div class="modal fade" id="armDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalArmTitle" style="color:#FFD966;"></h3>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" style="max-height: 80vh; overflow-y: auto;">
+        <!-- History Section -->
+        <div class="glass-card-deep mb-4">
+          <div class="card-inner">
+            <h4 style="color:#FFD966;"><i class="fas fa-book-open me-2"></i>History & Foundation</h4>
+            <p class="lead" id="modalHistory" style="white-space: pre-wrap; line-height: 1.8;"></p>
+            <div class="row mt-4" id="modalStats"></div>
+          </div>
+        </div>
+        
+        <!-- Mission & Vision -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-6">
+            <div class="glass-card-deep">
+              <div class="card-inner">
+                <h4 style="color:#FFD966;"><i class="fas fa-bullseye me-2"></i>Mission</h4>
+                <p id="modalMission"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="glass-card-deep">
+              <div class="card-inner">
+                <h4 style="color:#FFD966;"><i class="fas fa-eye me-2"></i>Vision</h4>
+                <p id="modalVision"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- YOMM Section (only visible for SPF arm) -->
+        <div id="yommSection" style="display: none;">
+          <div class="yomm-inner-section">
+            <h2 class="yomm-title"><i class="fas fa-users me-2"></i>Young Missionary Movement (YOMM)</h2>
+            
+            <!-- YOMM History -->
+            <div class="glass-card-deep mb-4">
+              <div class="card-inner">
+                <h4 style="color:#FFD966;"><i class="fas fa-book-open me-2"></i>YOMM History</h4>
+                <p class="lead" id="yommHistory" style="white-space: pre-wrap; line-height: 1.8;"></p>
+              </div>
+            </div>
+            
+            <!-- Slideshow 1: Archdiocese Executives (Portrait Form) -->
+            <h4 class="yomm-subtitle"><i class="fas fa-user-tie me-2"></i>Archdiocese Executives</h4>
+            <div class="swiper portrait-swiper yomm-swiper-executives">
+              <div class="swiper-wrapper" id="yommExecutivesContainer"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+            
+            <!-- Slideshow 2: Archdiocese Royalties (Portrait Form) -->
+            <h4 class="yomm-subtitle"><i class="fas fa-crown me-2"></i>Archdiocese Royalties</h4>
+            <div class="swiper portrait-swiper yomm-swiper-royalties">
+              <div class="swiper-wrapper" id="yommRoyaltiesContainer"></div>
+              <div class="swiper-button-next"></div>
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-pagination"></div>
+            </div>
+            
+            <!-- View More Button for YOMM Events & Gallery (separate page) -->
+            <div class="yomm-view-more">
+              <a href="yomm-events.html" class="btn btn-outline-gold btn-lg">
+                <i class="fas fa-calendar-alt me-2"></i>View YOMM Events & Gallery
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Main Slideshow for the Arm -->
+        <div id="mainSlideshowSection">
+          <h4 class="mb-3" style="color:#FFD966;"><i class="fas fa-images me-2"></i>Gallery - Leaders & Events</h4>
+          <div class="swiper arm-swiper">
+            <div class="swiper-wrapper" id="slideshowContainer"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-3">
+          <small class="text-muted" style="opacity:0.6;"><i class="fas fa-info-circle me-1"></i> To add your images, edit the slideshowData in the JavaScript section</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-gold" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+  AOS.init({ once: true, offset: 60, duration: 700 });
+
+  // ============================================
+  // SLIDESHOW DATA FOR EACH ARM
+  // ============================================
+  
+  const slideshowData = {
+    pmu: [
+      { imageUrl: null, title: "Blessed Paolo Manna", position: "Founder of PMU", description: "Blessed Paolo Manna, PIME missionary, founded the Pontifical Mission Union in 1916" },
+      { imageUrl: null, title: "PMU International Congress", position: "Annual Gathering", description: "Missionary animators from around the world gathering for formation" },
+      { imageUrl: null, title: "Clergy Formation Session", position: "Priestly Animation", description: "Formation program for priests on missionary spirituality" },
+      { imageUrl: null, title: "Missionary Animation Workshop", position: "Training Event", description: "Equipping clergy for missionary animation in parishes" }
+    ],
+    hca: [
+      { imageUrl: null, title: "Bishop Charles de Forbin-Janson", position: "Founder of HCA (1843)", description: "Founded the Holy Childhood Association in France" },
+      { imageUrl: null, title: "Sr. Mary Bellamine Nwabunwanne", position: "First HCA Coordinator Abuja", description: "Introduced HCA to Abuja Archdiocese in 2000" },
+      { imageUrl: null, title: "HCA Annual Convention", position: "Children's Missionary Rally", description: "Over 1,000 child missionaries gathered for prayer and celebration" },
+      { imageUrl: null, title: "Children's Missionary Formation", position: "Faith Education", description: "Teaching children about missionary vocation" }
+    ],
+    spf: [
+      { imageUrl: null, title: "Pauline Jaricot", position: "Founder of SPF (1822)", description: "Founded the Society for the Propagation of the Faith in Lyon, France" },
+      { imageUrl: null, title: "World Mission Sunday", position: "Annual Celebration", description: "Global day of prayer and support for missions" },
+      { imageUrl: null, title: "Missionary Fund Distribution", position: "Supporting Young Churches", description: "Distributing funds to mission territories worldwide" },
+      { imageUrl: null, title: "Mission Animation Conference", position: "Formation Event", description: "Training diocesan directors on missionary promotion" }
+    ],
+    pospa: [
+      { imageUrl: null, title: "Jeanne Bigard", position: "Founder of POSPA (1889)", description: "Founded the Work of Saint Peter the Apostle with her mother Stephanie" },
+      { imageUrl: null, title: "Seminary Support Program", position: "Forming Future Priests", description: "Supporting seminarians in mission territories" },
+      { imageUrl: null, title: "Religious Formation", position: "Novitiate Support", description: "Assisting religious communities in young churches" },
+      { imageUrl: null, title: "Vocation Promotion", position: "Encouraging Vocations", description: "Programs to inspire young people to religious life" }
+    ]
+  };
+
+  // ============================================
+  // YOMM PORTRAIT DATA - Archdiocese Executives
+  // ============================================
+  
+  const yommExecutives = [
+    { imageUrl: "Images/22.jpeg", name: "Abalu Stephen", position: "President YOMM Abuja Province", description: "Chief Shepherd and Patron of YOMM Abuja" },
+    { imageUrl: "Images/24.jpeg", name: "Aderinola Adewale Paul", position: "YOMM Archdiocesan Secretary", description: "Episcopal Liaison for Youth Ministry" },
+    { imageUrl: "Images/20.jpeg", name: "Idengeri Christiana Ehi", position: "Acting Secretary YOMM Abuja province", description: "National Director of Pontifical Mission Societies" },
+    { imageUrl: "Images/19.jpeg", name: "Sanctus Kalu", position: "P.R.O, Yomm Abuja Archdiocese", description: "Spiritual Director of YOMM" },
+    { imageUrl: "Images/13.jpeg", name: "Okoli Chinweoke Jessica", position: "Archdiocesan Provost", description: "Coordinating YOMM activities nationwide" },
+    { imageUrl: null, name: "Sr. Mary Bellamine", position: "HCA Coordinator", description: "Coordinating Holy Childhood Association" },
+    { imageUrl: null, name: "Rev. Fr. Peter Atsewe", position: "Former PMS Director", description: "Former Director of Pontifical Mission Societies" },
+    { imageUrl: null, name: "Rev. Fr. Festus Nwadike", position: "Former PMS Director", description: "Former Director of Pontifical Mission Societies" },
+    { imageUrl: null, name: "Msgr. Hypolite Adigwe", position: "PMS National Director Emeritus", description: "Founder of YOMM Nigeria" },
+    { imageUrl: null, name: "Mr. Richard Apeh", position: "First YOMM Coordinator", description: "First National Coordinator of YOMM" }
+  ];
+
+  // YOMM Royalties Portrait Data
+  const yommRoyalties = [
+    { imageUrl: "Images/21.jpeg", name: "Miss Anene Chidalu Queensly", position: "Miss YOMM provincial", description: "Supporting YOMM missionary activities" },
+    { imageUrl: "Images/20.jpeg", name: "Idengeri Christiana Ehi", position: "Miss YOMM of the archdiocese of Abuja", description: "Benefactor of youth missionary work" },
+    { imageUrl: "Images/9.jpeg", name: "Aleonoye Japheth Agbodesi", position: "Master YOMM Abuja Province from Abuja Archdiocese", description: "Supporting young missionaries" },
+    { imageUrl: "Images/14.jpeg", name: "Johnpaul Alex odigbo", position: "Mister yomm Abuja Archdiocese", description: "Promoting youth evangelization" },
+    { imageUrl: "Images/19.jpeg", name: "Sanctus Kalu", position: "Dame of St. Sylvester", description: "Patroness of YOMM" },
+    { imageUrl: null, name: "Chief Dr. Michael Okafor", position: "Knight of Columbus", description: "Supporting missionary formation" },
+    { imageUrl: null, name: "Lady Catherine Uche", position: "Lady of Mercy", description: "Benefactor of youth programs" },
+    { imageUrl: null, name: "Sir Anthony Nnamdi", position: "Knight of St. Mulumba", description: "Promoting Catholic youth work" },
+    { imageUrl: null, name: "Chief Mrs. Veronica Obi", position: "Royal Mother", description: "Supporting child missionaries" },
+    { imageUrl: null, name: "Sir David Nwachukwu", position: "Knight of the Holy Sepulchre", description: "Patron of missionary education" }
+  ];
+
+  // ============================================
+  // MISSIONARY ARMS DATA (4 Arms)
+  // ============================================
+  const armsData = [
+    {
+      id: 1,
+      name: "Pontifical Mission Union (PMU)",
+      icon: "fas fa-handshake",
+      shortDesc: "Union of clergy and religious for missionary animation",
+      longHistory: "The PMU, PONTIFICAL MISSIONARY UNION, was created on 31 October, 1916, an inspiration of Blessed Paolo Manna, PIME missionary, with the aim of animating and forming the faithful baptized in their missionary responsibility through the pastoral service of the bishops and priests according to the motto 'All the Church for all the world'. Initially called 'Missionary Union of the Clergy,' it was conferred by Pius XII the title of 'Pontifical' by a decree of 28 October 1956.",
+      mission: "In the light of the only mission of Jesus Christ, delivered to the Church through the Holy Spirit, the formation commitments of the mission are called to a creative involvement of the faith, prayer, testimony and charity of every Christian.",
+      vision: "The PMU and CIAM are invited to propose a missionary formation together with the particular Churches that will stimulate them towards the necessity of taking responsibility for evangelization.",
+      yearEst: 1916,
+      countries: "120+",
+      members: "10,000+",
+      slideshowKey: "pmu",
+      hasYomm: false
+    },
+    {
+      id: 2,
+      name: "Holy Childhood Association (HCA)",
+      icon: "fas fa-child",
+      shortDesc: "Missionary formation for children",
+      longHistory: "The Holy Childhood Association (HCA) was founded on 19th May 1843 by Bishop Charles de Forbin-Janson in France. In the Abuja Archdiocese, HCA has been active for over 25 years. The association was formally introduced in Abuja Archdiocese in 2000 by Rev. Sr. Mary Bellamine Nwabunwanne. Eight dedicated Religious Sisters have served as Archdiocesan Coordinators.",
+      mission: "To form children as young missionaries who pray and share with other children all over the world.",
+      vision: "Teach children to pray for other children worldwide. Encourage them to share and give. Build a missionary spirit from childhood.",
+      yearEst: 1843,
+      countries: "100+",
+      members: "500,000+",
+      slideshowKey: "hca",
+      hasYomm: false
+    },
+    {
+      id: 3,
+      name: "Society for Propagation of Faith (SPF)",
+      icon: "fas fa-church",
+      shortDesc: "Supporting mission churches worldwide",
+      longHistory: "The Society for the Propagation of the Faith was founded in 1822 by Pauline Jaricot in Lyon, France. It is the oldest of the Pontifical Mission Societies, dedicated to supporting the work of evangelization in mission territories. Through prayers and financial contributions, SPF provides essential support for building churches, schools, seminaries, and sustaining pastoral work in over 1,100 dioceses worldwide.",
+      mission: "To spread the Gospel and support missionary activities worldwide through missionary formation and animation.",
+      vision: "Promote evangelization in all nations. Encourage prayer and financial support for missions. Support missionaries and mission churches.",
+      yearEst: 1822,
+      countries: "1,100+",
+      members: "Millions",
+      slideshowKey: "spf",
+      hasYomm: true
+    },
+    {
+      id: 4,
+      name: "Pontifical Work of Saint Peter the Apostle (POSPA)",
+      icon: "fas fa-cross",
+      shortDesc: "Supporting seminarians and religious vocations",
+      longHistory: "The Pontifical Work of Saint Peter the Apostle (POSPA) was founded in 1889 by Jeanne Bigard and her mother Stephanie in France. It is dedicated to supporting the formation of local clergy and religious in mission territories. POSPA provides financial assistance for seminaries, novitiates, and the ongoing formation of priests, brothers, and sisters in young churches.",
+      mission: "To support the formation of local clergy and religious in mission territories, ensuring that young churches have well-trained spiritual leaders.",
+      vision: "A world where every mission diocese has an adequate number of well-formed local priests and religious to serve the spiritual needs of the faithful.",
+      yearEst: 1889,
+      countries: "1,000+",
+      members: "Millions",
+      slideshowKey: "pospa",
+      hasYomm: false
+    }
+  ];
+
+  // ============================================
+  // RENDER ARM CARDS
+  // ============================================
+  function renderArmCards() {
+    const container = document.getElementById('armsCardsContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    armsData.forEach(arm => {
+      const col = document.createElement('div');
+      col.className = 'col-md-6 col-lg-3';
+      col.innerHTML = `
+        <div class="arm-card text-center p-4" data-arm-id="${arm.id}">
+          <div class="arm-icon-large">
+            <i class="${arm.icon}"></i>
+          </div>
+          <h3>${arm.name}</h3>
+          <p>${arm.shortDesc}</p>
+          <p class="small mt-2"><i class="fas fa-calendar-alt me-1"></i> Est. ${arm.yearEst}</p>
+          <span class="btn-outline-gold btn-sm px-3 py-1" style="font-size:0.8rem;">Click to Explore →</span>
+        </div>
+      `;
+      container.appendChild(col);
+    });
+    
+    document.querySelectorAll('.arm-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const armId = parseInt(this.getAttribute('data-arm-id'));
+        const arm = armsData.find(a => a.id === armId);
+        if (arm) openArmModal(arm);
+      });
+    });
+  }
+  
+  // Store swiper instances
+  let mainSwiper = null;
+  let yommSwiperExecutives = null;
+  let yommSwiperRoyalties = null;
+  
+  // ============================================
+  // OPEN MODAL WITH ARM DETAILS
+  // ============================================
+  function openArmModal(arm) {
+    document.getElementById('modalArmTitle').innerHTML = `<i class="${arm.icon} me-2"></i>${arm.name}`;
+    document.getElementById('modalHistory').innerHTML = arm.longHistory;
+    document.getElementById('modalMission').innerHTML = arm.mission;
+    document.getElementById('modalVision').innerHTML = arm.vision;
+    
+    document.getElementById('modalStats').innerHTML = `
+      <div class="col-md-4 text-center"><div class="stat-number">${arm.yearEst}</div><small>Year Established</small></div>
+      <div class="col-md-4 text-center"><div class="stat-number">${arm.countries}</div><small>Countries/Dioceses</small></div>
+      <div class="col-md-4 text-center"><div class="stat-number">${arm.members}</div><small>Members Worldwide</small></div>
+    `;
+    
+    const yommSection = document.getElementById('yommSection');
+    const mainSlideshowSection = document.getElementById('mainSlideshowSection');
+    
+    if (arm.hasYomm) {
+      yommSection.style.display = 'block';
+      mainSlideshowSection.style.display = 'block';
+      
+      document.getElementById('yommHistory').innerHTML = `YOMM was established in 2006 under the Pontifical Mission Societies Nigeria, founded by Msgr. Hypolite Adigwe. Created to sustain the missionary zeal of young Catholics who graduated from the Holy Childhood Association, YOMM has grown into a nationwide movement with thousands of young members. It organizes retreats, formation programs, evangelization campaigns, and charitable works across Nigeria. The movement has been instrumental in nurturing vocations and raising young missionary disciples.`;
+      
+      renderPortraitSlideshow('yommExecutivesContainer', yommExecutives);
+      renderPortraitSlideshow('yommRoyaltiesContainer', yommRoyalties);
+    } else {
+      yommSection.style.display = 'none';
+      mainSlideshowSection.style.display = 'block';
+    }
+    
+    // Render main slideshow for the arm
+    const slides = slideshowData[arm.slideshowKey] || slideshowData.pmu;
+    const slideshowContainer = document.getElementById('slideshowContainer');
+    slideshowContainer.innerHTML = '';
+    
+    slides.forEach(slide => {
+      const slideDiv = document.createElement('div');
+      slideDiv.className = 'swiper-slide';
+      const imageHtml = slide.imageUrl 
+        ? `<img src="${slide.imageUrl}" alt="${escapeHtml(slide.title)}" class="slide-image">`
+        : `<div class="slide-placeholder"><i class="fas fa-image"></i><br><small class="mt-2">Add Image</small></div>`;
+      slideDiv.innerHTML = `
+        ${imageHtml}
+        <div class="slide-title">${escapeHtml(slide.title)}</div>
+        <div class="slide-position">${escapeHtml(slide.position)}</div>
+        <div class="slide-desc">${escapeHtml(slide.description)}</div>
+      `;
+      slideshowContainer.appendChild(slideDiv);
+    });
+    
+    const modalElement = document.getElementById('armDetailModal');
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+    
+    setTimeout(() => {
+      if (mainSwiper) mainSwiper.destroy(true, true);
+      
+      mainSwiper = new Swiper('.arm-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: slides.length > 1,
+        autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+        navigation: { nextEl: '.arm-swiper .swiper-button-next', prevEl: '.arm-swiper .swiper-button-prev' },
+        pagination: { el: '.arm-swiper .swiper-pagination', clickable: true },
+        breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+      });
+      
+      if (arm.hasYomm) {
+        if (yommSwiperExecutives) yommSwiperExecutives.destroy(true, true);
+        if (yommSwiperRoyalties) yommSwiperRoyalties.destroy(true, true);
+        
+        yommSwiperExecutives = new Swiper('.yomm-swiper-executives', {
+          slidesPerView: 2,
+          spaceBetween: 15,
+          loop: true,
+          autoplay: { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+          navigation: { nextEl: '.yomm-swiper-executives .swiper-button-next', prevEl: '.yomm-swiper-executives .swiper-button-prev' },
+          pagination: { el: '.yomm-swiper-executives .swiper-pagination', clickable: true },
+          breakpoints: { 480: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+        });
+        
+        yommSwiperRoyalties = new Swiper('.yomm-swiper-royalties', {
+          slidesPerView: 2,
+          spaceBetween: 15,
+          loop: true,
+          autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+          navigation: { nextEl: '.yomm-swiper-royalties .swiper-button-next', prevEl: '.yomm-swiper-royalties .swiper-button-prev' },
+          pagination: { el: '.yomm-swiper-royalties .swiper-pagination', clickable: true },
+          breakpoints: { 480: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+        });
+      }
+    }, 300);
+  }
+  
+  function renderPortraitSlideshow(containerId, data) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    
+    data.forEach(item => {
+      const slideDiv = document.createElement('div');
+      slideDiv.className = 'swiper-slide';
+      const imageHtml = item.imageUrl 
+        ? `<img src="${item.imageUrl}" alt="${escapeHtml(item.name)}" class="portrait-image">`
+        : `<div class="portrait-image" style="background: linear-gradient(135deg, #2c5364, #203a43); display: flex; align-items: center; justify-content: center;"><i class="fas fa-user-circle" style="font-size: 3rem; color: #FFD966;"></i></div>`;
+      
+      slideDiv.innerHTML = `
+        ${imageHtml}
+        <div class="portrait-name">${escapeHtml(item.name)}</div>
+        <div class="portrait-position">${escapeHtml(item.position)}</div>
+        <div class="portrait-overlay-hover">
+          <div class="portrait-desc">${escapeHtml(item.description)}</div>
+        </div>
+      `;
+      container.appendChild(slideDiv);
+    });
+  }
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+  }
+  
+  renderArmCards();
+  console.log('%c✨ Missionary Arms Loaded | Portrait Slideshow with Hover Effects ✨', 'color: #FFD966; font-size: 16px');
+  console.log('%c📸 YOMM Events & Gallery moved to separate page (yomm-events.html)', 'color: #FFB347; font-size: 12px');
+</script>
+
+</body>
+</html>

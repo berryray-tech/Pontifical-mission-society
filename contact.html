@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Contact Us | Pontifical Mission Society - Reach Out to Us</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
+      color: #f0f3f8;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255,215,150,0.5);
+      border-radius: 10px;
+    }
+
+    /* NAVBAR - sleek glass */
+    .navbar {
+      background: rgba(10, 25, 30, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: 0.3s;
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #FFE6B0, #FFC97E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .logo-icon {
+      font-size: 1.8rem;
+      color: #FFD966;
+      margin-right: 8px;
+    }
+    .nav-link {
+      color: rgba(255,248,225,0.9) !important;
+      font-weight: 500;
+      margin: 0 6px;
+      transition: 0.3s;
+      position: relative;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #FFD966 !important;
+      transform: translateY(-2px);
+    }
+    .navbar-toggler {
+      border-color: rgba(255,215,150,0.6);
+    }
+    .navbar-toggler-icon {
+      filter: brightness(0) invert(1);
+    }
+
+    /* Page Header */
+    .page-header {
+      position: relative;
+      padding: 140px 20px 60px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .glass-header {
+      background: rgba(20, 40, 48, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 3rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      display: inline-block;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+    .glass-header h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF6E0, #FFDA88);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .glass-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 40px 20px 80px;
+    }
+
+    /* Info Cards */
+    .info-card {
+      background: rgba(25, 45, 55, 0.5);
+      backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.4s;
+      height: 100%;
+    }
+    .info-card:hover {
+      transform: translateY(-8px);
+      background: rgba(35, 65, 78, 0.7);
+      border-color: #FFD966;
+    }
+    .info-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(255,217,102,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-size: 2rem;
+      color: #FFD966;
+      transition: 0.3s;
+    }
+    .info-card:hover .info-icon {
+      background: #FFD966;
+      color: #1e2f38;
+      transform: scale(1.1);
+    }
+    .info-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .info-card p {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Lamp Container - Interactive */
+    .lamp-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .lamp {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+    .lamp-base {
+      width: 50px;
+      height: 60px;
+      background: linear-gradient(135deg, #8B7355, #5D3A1A);
+      border-radius: 8px 8px 15px 15px;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .lamp-stand {
+      width: 12px;
+      height: 70px;
+      background: linear-gradient(90deg, #C9A87C, #9B7B4C);
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 10px;
+    }
+    .lamp-bulb {
+      position: absolute;
+      bottom: 115px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle, #FFF9E6, #FFE8B5);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255,217,102,0.5);
+      transition: all 0.4s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lamp-bulb i {
+      font-size: 2rem;
+      color: #FFB347;
+      transition: all 0.3s;
+    }
+    .lamp-glow {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(255,217,102,0.6), transparent);
+      border-radius: 50%;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: all 0.5s ease;
+      pointer-events: none;
+    }
+    .lamp-container.active .lamp-glow {
+      opacity: 1;
+      animation: pulseGlow 1.5s infinite;
+    }
+    .lamp-container.active .lamp-bulb {
+      background: radial-gradient(circle, #FFE55C, #FFB347);
+      box-shadow: 0 0 40px rgba(255,200,50,0.8);
+    }
+    .lamp-container.active .lamp-bulb i {
+      color: #FFD700;
+      text-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+      50% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+    }
+    .lamp-text {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #FFD966;
+      text-align: center;
+    }
+
+    /* Form Container - Hidden Initially */
+    .form-container {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(30px);
+    }
+    .form-container.active {
+      max-height: 800px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 2rem;
+    }
+    .glass-form {
+      background: rgba(25, 45, 55, 0.6);
+      backdrop-filter: blur(16px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .form-control, .form-select {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,230,170,0.3);
+      color: white;
+      padding: 0.8rem 1rem;
+      border-radius: 1rem;
+      transition: all 0.3s;
+    }
+    .form-control:focus, .form-select:focus {
+      background: rgba(255,255,255,0.2);
+      border-color: #FFD966;
+      box-shadow: 0 0 0 3px rgba(255,217,102,0.2);
+      color: white;
+    }
+    .form-control::placeholder, .form-select {
+      color: rgba(255,255,255,0.6);
+    }
+    textarea.form-control {
+      resize: none;
+    }
+    .btn-send {
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 2rem;
+      color: #1e2f38;
+      font-weight: 600;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    .btn-send:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255,217,102,0.4);
+    }
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #FFD966;
+    }
+
+    /* Map Section */
+    .map-card {
+      background: rgba(25, 45, 55, 0.5);
+      backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      overflow: hidden;
+      padding: 1rem;
+    }
+    .map-placeholder {
+      background: linear-gradient(135deg, #2c5364, #203a43);
+      border-radius: 1rem;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(5, 20, 25, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,210,130,0.2);
+      font-size: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .glass-header h1 {
+        font-size: 2rem;
+      }
+      .lamp {
+        width: 140px;
+        height: 140px;
+      }
+      .lamp-bulb {
+        width: 55px;
+        height: 55px;
+        bottom: 95px;
+      }
+      .lamp-bulb i {
+        font-size: 1.5rem;
+      }
+      .lamp-glow {
+        width: 90px;
+        height: 90px;
+        bottom: 75px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="fas fa-church logo-icon"></i>
+      <span>Glorious Temple</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-heart me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="animators.html"><i class="fas fa-users me-1"></i>Animators</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fas fa-hands-helping me-1"></i>Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html"><i class="fas fa-newspaper me-1"></i>News</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="glass-header" data-aos="fade-up" data-aos-duration="800">
+      <h1><i class="fas fa-envelope-open-text me-2" style="font-size: 2rem;"></i>Get In Touch</h1>
+      <p>We'd love to hear from you! Reach out with prayer requests, questions, or just to say hello</p>
+      <div class="mt-3">
+        <i class="fas fa-pray" style="color:#FFD966;"></i>
+        <span class="mx-2">•</span>
+        <i class="fas fa-heart" style="color:#FFD966;"></i>
+        <span class="mx-2">•</span>
+        <i class="fas fa-church" style="color:#FFD966;"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section">
+  <div class="container">
+    <!-- Contact Info Cards -->
+    <div class="row g-4 mb-5" data-aos="fade-up">
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3>Our Location</h3>
+          <p>12 Grace Avenue, Wuse Zone 5</p>
+          <p>Abuja, Nigeria</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <h3>Call Us</h3>
+          <p>+234 802 345 6789</p>
+          <p>+234 803 456 7890</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email Us</h3>
+          <p>info@glorioustemple.org</p>
+          <p>prayer@glorioustemple.org</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lamp Interactive Form Section -->
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
+      <div class="col-lg-8">
+        <div class="text-center mb-4">
+          <div class="lamp-container" id="lampContainer">
+            <div class="lamp">
+              <div class="lamp-stand"></div>
+              <div class="lamp-bulb" id="lampBulb">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <div class="lamp-glow"></div>
+              <div class="lamp-base"></div>
+            </div>
+            <div class="lamp-text" id="lampText">
+              <i class="fas fa-hand-point-up me-2"></i>Click the lamp to light up the contact form!
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Container (Initially Hidden) -->
+        <div class="form-container" id="formContainer">
+          <div class="glass-form">
+            <h3 class="text-center mb-4" style="color: #FFD966;">
+              <i class="fas fa-pen-alt me-2"></i>Send Us a Message
+            </h3>
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fas fa-user me-2"></i>Full Name *</label>
+                  <input type="text" class="form-control" id="name" required placeholder="Enter your full name">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fas fa-envelope me-2"></i>Email Address *</label>
+                  <input type="email" class="form-control" id="email" required placeholder="your@email.com">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fas fa-phone me-2"></i>Phone Number</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="+234 XXX XXX XXXX">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fas fa-tag me-2"></i>Subject *</label>
+                  <select class="form-select" id="subject" required>
+                    <option value="" disabled selected>Select a subject</option>
+                    <option value="prayer">Prayer Request</option>
+                    <option value="inquiry">General Inquiry</option>
+                    <option value="testimony">Share a Testimony</option>
+                    <option value="volunteer">Volunteer Opportunity</option>
+                    <option value="partnership">Partnership/Support</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label class="form-label"><i class="fas fa-comment me-2"></i>Your Message *</label>
+                  <textarea class="form-control" id="message" rows="5" required placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="newsletter" style="background-color: rgba(255,255,255,0.1); border-color: #FFD966;">
+                    <label class="form-check-label" for="newsletter" style="color: rgba(255,255,255,0.8);">
+                      Subscribe to our newsletter for updates and prayer points
+                    </label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn-send">
+                    <i class="fas fa-paper-plane me-2"></i>Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+            <div id="formSuccess" class="alert alert-success mt-3" style="display: none; background: rgba(255,217,102,0.2); border-color: #FFD966; color: #FFD966;">
+              <i class="fas fa-check-circle me-2"></i>Thank you! Your message has been sent. We'll get back to you soon.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map & Social Section -->
+    <div class="row mt-5" data-aos="fade-up" data-aos-delay="200">
+      <div class="col-lg-6 mb-4">
+        <div class="info-card" style="height: 100%;">
+          <div class="info-icon" style="width: 60px; height: 60px;">
+            <i class="fas fa-map"></i>
+          </div>
+          <h3>Find Us</h3>
+          <div class="map-card mt-3">
+            <div class="map-placeholder">
+              <i class="fas fa-map-marked-alt" style="font-size: 3rem; color: #FFD966; margin-bottom: 1rem; display: block;"></i>
+              <p><strong>Glorious Temple Church</strong><br>12 Grace Avenue, Wuse Zone 5<br>Abuja, Nigeria</p>
+              <p class="mt-2"><i class="fas fa-clock me-2"></i>Service Times:<br>Sunday: 9:00 AM & 11:00 AM<br>Wednesday: 6:00 PM (Prayer Meeting)</p>
+              <a href="#" class="btn btn-outline-warning mt-2" style="border-radius: 30px;"><i class="fas fa-directions me-2"></i>Get Directions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="info-card" style="height: 100%;">
+          <div class="info-icon" style="width: 60px; height: 60px;">
+            <i class="fas fa-share-alt"></i>
+          </div>
+          <h3>Connect With Us</h3>
+          <div class="row g-3 mt-3">
+            <div class="col-6">
+              <a href="#" class="btn btn-outline-warning w-100" style="border-radius: 50px; padding: 0.8rem;">
+                <i class="fab fa-facebook-f me-2"></i>Facebook
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-outline-warning w-100" style="border-radius: 50px; padding: 0.8rem;">
+                <i class="fab fa-instagram me-2"></i>Instagram
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-outline-warning w-100" style="border-radius: 50px; padding: 0.8rem;">
+                <i class="fab fa-youtube me-2"></i>YouTube
+              </a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-outline-warning w-100" style="border-radius: 50px; padding: 0.8rem;">
+                <i class="fab fa-whatsapp me-2"></i>WhatsApp
+              </a>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-top border-warning border-opacity-25">
+            <p><i class="fas fa-praying-hands me-2" style="color:#FFD966;"></i> Prayer Line: <strong>+234 809 123 4567</strong> (Available 24/7)</p>
+            <p><i class="fas fa-clock me-2" style="color:#FFD966;"></i> Office Hours: Monday - Friday, 9:00 AM - 5:00 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="mb-1"><i class="fas fa-cross me-1"></i> © 2026 Glorious Temple Church · Growing Faith, Building Lives</p>
+  <p class="mb-0" style="opacity:0.7;">Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by <strong>BerryRay Technologies</strong></p>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+  // Initialize AOS
+  AOS.init({
+    once: true,
+    offset: 60,
+    duration: 700,
+    easing: 'ease-out-cubic',
+  });
+
+  // Lamp Interaction - Toggle Form
+  const lampContainer = document.getElementById('lampContainer');
+  const formContainer = document.getElementById('formContainer');
+  const lampText = document.getElementById('lampText');
+  let isFormVisible = false;
+
+  function toggleForm() {
+    isFormVisible = !isFormVisible;
+    
+    if (isFormVisible) {
+      lampContainer.classList.add('active');
+      formContainer.classList.add('active');
+      lampText.innerHTML = '<i class="fas fa-lightbulb me-2" style="color: #FFD966;"></i>The lamp is lit! Fill out the form below ✨';
+      // Play subtle animation
+      const bulb = document.getElementById('lampBulb');
+      bulb.style.animation = 'pulseGlow 0.5s ease';
+      setTimeout(() => {
+        bulb.style.animation = '';
+      }, 500);
+    } else {
+      lampContainer.classList.remove('active');
+      formContainer.classList.remove('active');
+      lampText.innerHTML = '<i class="fas fa-hand-point-up me-2"></i>Click the lamp to light up the contact form!';
+    }
+  }
+
+  // Click lamp to toggle form
+  const lampBulb = document.getElementById('lampBulb');
+  lampBulb.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleForm();
+  });
+  
+  // Also allow clicking the container for better UX
+  lampContainer.addEventListener('click', (e) => {
+    if (e.target === lampContainer || e.target.classList.contains('lamp-text') || e.target.parentElement?.classList.contains('lamp-text')) {
+      toggleForm();
+    }
+  });
+
+  // Form Submission Handler
+  const contactForm = document.getElementById('contactForm');
+  const successMessage = document.getElementById('formSuccess');
+  
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    const phone = document.getElementById('phone').value;
+    const newsletter = document.getElementById('newsletter').checked;
+    
+    // Basic validation
+    if (!name || !email || !subject || !message) {
+      alert('Please fill in all required fields (*)');
+      return;
+    }
+    
+    if (!email.includes('@')) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
+    // Simulate form submission (would normally send to server)
+    const submitBtn = document.querySelector('.btn-send');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+    submitBtn.disabled = true;
+    
+    setTimeout(() => {
+      // Show success message
+      successMessage.style.display = 'block';
+      
+      // Reset form
+      contactForm.reset();
+      
+      // Reset button
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 5000);
+      
+      // Log to console (for demo)
+      console.log('Form submitted:', { name, email, subject, message, phone, newsletter });
+      
+      // Optional: Show a sweet alert style notification
+      const notification = document.createElement('div');
+      notification.className = 'alert alert-success position-fixed top-50 start-50 translate-middle';
+      notification.style.zIndex = '9999';
+      notification.style.background = 'rgba(20,40,48,0.95)';
+      notification.style.backdropFilter = 'blur(10px)';
+      notification.style.border = '1px solid #FFD966';
+      notification.style.color = '#FFD966';
+      notification.innerHTML = '<i class="fas fa-check-circle me-2"></i>Message sent successfully! We\'ll respond shortly.';
+      notification.style.padding = '1rem 2rem';
+      notification.style.borderRadius = '2rem';
+      notification.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        setTimeout(() => notification.remove(), 500);
+      }, 3000);
+      
+    }, 1000);
+  });
+  
+  // Add floating animation to lamp on page load
+  setTimeout(() => {
+    const lamp = document.querySelector('.lamp');
+    lamp.style.animation = 'float 3s ease-in-out infinite';
+  }, 500);
+  
+  // Add float keyframes dynamically
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .lamp {
+      animation: float 3s ease-in-out infinite;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Social media button clicks
+  document.querySelectorAll('.btn-outline-warning').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const icon = btn.querySelector('i');
+      let platform = '';
+      if (icon.classList.contains('fa-facebook-f')) platform = 'Facebook';
+      else if (icon.classList.contains('fa-instagram')) platform = 'Instagram';
+      else if (icon.classList.contains('fa-youtube')) platform = 'YouTube';
+      else if (icon.classList.contains('fa-whatsapp')) platform = 'WhatsApp';
+      else if (btn.innerHTML.includes('Directions')) platform = 'Google Maps';
+      
+      alert(`✨ Connect with us on ${platform}! (Social links coming soon)`);
+    });
+  });
+  
+  console.log('%c✨ Glorious Temple Contact Page | Lamp Interactive Form Loaded ✨', 'color: #FFD966; font-size: 16px; font-weight: bold;');
+</script>
+
+</body>
+</html>

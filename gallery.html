@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>YOMM Events Gallery | Pontifical Mission Society</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lightbox for image preview -->
+  <link href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
+      color: #f0f3f8;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,215,150,0.5); border-radius: 10px; }
+
+    /* NAVBAR */
+    .navbar {
+      background: rgba(10, 25, 30, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, #FFE6B0, #FFC97E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .logo-icon { font-size: 1.8rem; color: #FFD966; margin-right: 8px; }
+    .nav-link {
+      color: rgba(255,248,225,0.9) !important;
+      font-weight: 500;
+      margin: 0 6px;
+      transition: 0.3s;
+    }
+    .nav-link:hover, .nav-link.active { color: #FFD966 !important; transform: translateY(-2px); }
+
+    /* Page Header */
+    .page-header {
+      position: relative;
+      padding: 140px 20px 60px;
+      text-align: center;
+    }
+    .glass-header {
+      background: rgba(20, 40, 48, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 3rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      display: inline-block;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+    .glass-header h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF6E0, #FFDA88);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .glass-header p { font-size: 1.2rem; opacity: 0.9; }
+
+    /* Gallery Grid */
+    .gallery-section {
+      padding: 40px 20px 80px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    /* Glass Morphism Card */
+    .gallery-card {
+      background: rgba(25, 45, 55, 0.4);
+      backdrop-filter: blur(16px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 1.5rem;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255,217,102,0), rgba(255,217,102,0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: 0.4s;
+      pointer-events: none;
+    }
+    .gallery-card:hover::before {
+      background: linear-gradient(135deg, #FFD966, #FFB347, #FFD966);
+      background-size: 200% 200%;
+      animation: borderGlow 1.5s ease infinite;
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .gallery-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(35, 65, 78, 0.7);
+      border-color: transparent;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+    }
+
+    /* Image Container - Landscape Focus */
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .gallery-card:hover .gallery-img {
+      transform: scale(1.08);
+    }
+    
+    /* Overlay on hover for info */
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.85), transparent);
+      padding: 1.5rem 1rem 0.8rem;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .gallery-card:hover .image-overlay {
+      transform: translateY(0);
+    }
+    
+    /* Card Content */
+    .card-content {
+      padding: 1.2rem;
+    }
+    .event-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #FFE2A4;
+      margin-bottom: 0.3rem;
+    }
+    .event-organizer {
+      font-size: 0.8rem;
+      color: #FFD966;
+      margin-bottom: 0.3rem;
+    }
+    .event-organizer i {
+      margin-right: 6px;
+      font-size: 0.7rem;
+    }
+    .event-date {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 0.8rem;
+    }
+    .event-date i {
+      margin-right: 6px;
+    }
+    
+    /* Button Group */
+    .btn-group-card {
+      display: flex;
+      gap: 10px;
+      margin-top: 0.5rem;
+    }
+    .btn-glass {
+      background: rgba(255,217,102,0.15);
+      border: 1px solid rgba(255,217,102,0.4);
+      border-radius: 30px;
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #FFD966;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .btn-glass:hover {
+      background: #FFD966;
+      color: #1e2f38;
+      transform: translateY(-2px);
+    }
+    .btn-download {
+      background: rgba(255,217,102,0.15);
+      border: 1px solid rgba(255,217,102,0.4);
+      border-radius: 30px;
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #FFD966;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .btn-download:hover {
+      background: #FFD966;
+      color: #1e2f38;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(5, 20, 25, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,210,130,0.2);
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .glass-header h1 { font-size: 2rem; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+      .image-container { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="fas fa-church logo-icon"></i>
+      <span>Pontifical Mission Society</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-heart me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="animators.html"><i class="fas fa-users me-1"></i>Animators</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fas fa-hands-helping me-1"></i>Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html"><i class="fas fa-newspaper me-1"></i>News</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+        <li class="nav-item"><a class="nav-link active" href="gallery.html"><i class="fas fa-images me-1"></i>Gallery</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="glass-header" data-aos="fade-up">
+      <h1><i class="fas fa-images me-2"></i>YOMM Events Gallery</h1>
+      <p>Capturing moments of faith, fellowship, and missionary spirit</p>
+      <div class="mt-3">
+        <i class="fas fa-calendar-alt" style="color:#FFD966;"></i>
+        <span class="mx-2">•</span>
+        <i class="fas fa-users" style="color:#FFD966;"></i>
+        <span class="mx-2">•</span>
+        <i class="fas fa-heart" style="color:#FFD966;"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY GRID SECTION -->
+<section class="gallery-section">
+  <div class="container">
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Gallery items will be injected dynamically -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><i class="fas fa-cross me-1"></i> © 2026 Pontifical Mission Society · Spreading the Gospel Worldwide</p>
+  <p style="opacity:0.7;">Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by BerryRay Technologies</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
+<script>
+  AOS.init({ once: true, offset: 60, duration: 700 });
+
+  // ============================================
+  // GALLERY DATA - Add your images here
+  // Each image should have:
+  // - imageUrl: path to your image (landscape orientation works best)
+  // - title: Event name
+  // - organizer: Who organized the event
+  // - date: Date of the event
+  // ============================================
+  const galleryData = [
+    {
+      id: 1,
+      imageUrl: "https://images.pexels.com/photos/267950/pexels-photo-267950.jpeg?w=800&h=500&fit=crop",
+      title: "YOMM National Congress 2025",
+      organizer: "YOMM Nigeria",
+      date: "December 10-15, 2025"
+    },
+    {
+      id: 2,
+      imageUrl: "https://images.pexels.com/photos/267951/pexels-photo-267951.jpeg?w=800&h=500&fit=crop",
+      title: "Missionary Formation Workshop",
+      organizer: "Pontifical Mission Society",
+      date: "October 5-7, 2025"
+    },
+    {
+      id: 3,
+      imageUrl: "https://images.pexels.com/photos/267952/pexels-photo-267952.jpeg?w=800&h=500&fit=crop",
+      title: "Youth Evangelization Outreach",
+      organizer: "YOMM Abuja Province",
+      date: "August 20, 2025"
+    },
+    {
+      id: 4,
+      imageUrl: "https://images.pexels.com/photos/267953/pexels-photo-267953.jpeg?w=800&h=500&fit=crop",
+      title: "Leadership Training Camp",
+      organizer: "Catholic Youth Organization",
+      date: "June 15-18, 2025"
+    },
+    {
+      id: 5,
+      imageUrl: "https://images.pexels.com/photos/267954/pexels-photo-267954.jpeg?w=800&h=500&fit=crop",
+      title: "Prayer Vigil for Missions",
+      organizer: "Holy Childhood Association",
+      date: "May 30, 2025"
+    },
+    {
+      id: 6,
+      imageUrl: "https://images.pexels.com/photos/267955/pexels-photo-267955.jpeg?w=800&h=500&fit=crop",
+      title: "Charity Outreach Program",
+      organizer: "YOMM Charity Arm",
+      date: "April 12, 2025"
+    },
+    {
+      id: 7,
+      imageUrl: "https://images.pexels.com/photos/267956/pexels-photo-267956.jpeg?w=800&h=500&fit=crop",
+      title: "Missionary Quiz Competition",
+      organizer: "Pontifical Mission Union",
+      date: "March 22, 2025"
+    },
+    {
+      id: 8,
+      imageUrl: "https://images.pexels.com/photos/267957/pexels-photo-267957.jpeg?w=800&h=500&fit=crop",
+      title: "Cultural Fiesta",
+      organizer: "YOMM Cultural Committee",
+      date: "February 14, 2025"
+    },
+    {
+      id: 9,
+      imageUrl: "https://images.pexels.com/photos/267958/pexels-photo-267958.jpeg?w=800&h=500&fit=crop",
+      title: "Retreat for Animators",
+      organizer: "Society for Propagation of Faith",
+      date: "January 25-27, 2025"
+    },
+    {
+      id: 10,
+      imageUrl: "https://images.pexels.com/photos/267959/pexels-photo-267959.jpeg?w=800&h=500&fit=crop",
+      title: "World Mission Sunday",
+      organizer: "Pontifical Mission Society",
+      date: "October 20, 2024"
+    },
+    {
+      id: 11,
+      imageUrl: "https://images.pexels.com/photos/267960/pexels-photo-267960.jpeg?w=800&h=500&fit=crop",
+      title: "Seminar on Evangelization",
+      organizer: "Pontifical Mission Union",
+      date: "September 8, 2024"
+    },
+    {
+      id: 12,
+      imageUrl: "https://images.pexels.com/photos/267961/pexels-photo-267961.jpeg?w=800&h=500&fit=crop",
+      title: "Youth Festival 2024",
+      organizer: "YOMM National",
+      date: "August 5-8, 2024"
+    }
+  ];
+
+  // Helper function to format date for display
+  function formatDate(dateStr) {
+    return dateStr;
+  }
+
+  // Function to download image
+  async function downloadImage(imageUrl, eventTitle) {
+    try {
+      // Show loading indication
+      Swal.fire({
+        title: 'Downloading...',
+        text: 'Preparing your image for download',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+      
+      // Fetch the image
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${eventTitle.replace(/[^a-z0-9]/gi, '_')}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      Swal.fire({
+        title: 'Downloaded!',
+        text: 'Image saved successfully',
+        icon: 'success',
+        confirmButtonColor: '#FFD966'
+      });
+    } catch (error) {
+      console.error('Download failed:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to download image. Please try again.',
+        icon: 'error',
+        confirmButtonColor: '#d33'
+      });
+    }
+  }
+
+  // Function to open full image preview
+  function openImagePreview(imageUrl, title) {
+    // Create a modal for image preview
+    const modalHtml = `
+      <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content" style="background: rgba(20, 40, 48, 0.98); backdrop-filter: blur(20px); border: 2px solid #FFD966; border-radius: 1.5rem;">
+            <div class="modal-header border-warning">
+              <h5 class="modal-title" style="color:#FFD966;">${escapeHtml(title)}</h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+              <img src="${imageUrl}" alt="${escapeHtml(title)}" style="width:100%; border-radius: 1rem;">
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-outline-gold" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Remove existing modal if any
+    const existingModal = document.getElementById('imagePreviewModal');
+    if (existingModal) existingModal.remove();
+    
+    // Add modal to body
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+    modal.show();
+    
+    // Remove modal from DOM after hidden
+    document.getElementById('imagePreviewModal').addEventListener('hidden.bs.modal', function() {
+      this.remove();
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+  }
+
+  // Render gallery
+  function renderGallery() {
+    const grid = document.getElementById('galleryGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    galleryData.forEach((item, index) => {
+      const card = document.createElement('div');
+      card.className = 'gallery-card';
+      card.setAttribute('data-aos', 'fade-up');
+      card.setAttribute('data-aos-delay', (index * 50).toString());
+      
+      card.innerHTML = `
+        <div class="image-container">
+          <img src="${item.imageUrl}" alt="${escapeHtml(item.title)}" class="gallery-img" loading="lazy">
+          <div class="image-overlay">
+            <small style="color:#FFE2A4;"><i class="fas fa-info-circle me-1"></i>Click image to view full size</small>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="event-title">${escapeHtml(item.title)}</h3>
+          <div class="event-organizer"><i class="fas fa-users"></i> ${escapeHtml(item.organizer)}</div>
+          <div class="event-date"><i class="fas fa-calendar-alt"></i> ${escapeHtml(item.date)}</div>
+          <div class="btn-group-card">
+            <button class="btn-glass view-btn" data-id="${item.id}">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button class="btn-download download-btn" data-id="${item.id}">
+              <i class="fas fa-download"></i> Download
+            </button>
+          </div>
+        </div>
+      `;
+      
+      grid.appendChild(card);
+    });
+    
+    // Attach event listeners
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const item = galleryData.find(i => i.id === id);
+        if (item) openImagePreview(item.imageUrl, item.title);
+      });
+    });
+    
+    document.querySelectorAll('.download-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const item = galleryData.find(i => i.id === id);
+        if (item) downloadImage(item.imageUrl, item.title);
+      });
+    });
+    
+    // Make entire card clickable for view
+    document.querySelectorAll('.gallery-card').forEach(card => {
+      const viewBtn = card.querySelector('.view-btn');
+      if (viewBtn) {
+        card.addEventListener('click', (e) => {
+          if (!e.target.closest('.btn-glass') && !e.target.closest('.btn-download')) {
+            const id = parseInt(card.querySelector('.view-btn').getAttribute('data-id'));
+            const item = galleryData.find(i => i.id === id);
+            if (item) openImagePreview(item.imageUrl, item.title);
+          }
+        });
+      }
+    });
+  }
+  
+  // Add SweetAlert2 for better notifications
+  const swalScript = document.createElement('script');
+  swalScript.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+  swalScript.onload = () => {
+    renderGallery();
+    console.log('%c✨ YOMM Events Gallery Loaded | Hover Effects | Glass Morphism ✨', 'color: #FFD966; font-size: 16px');
+    console.log('%c📸 To add your own images, edit the galleryData array in the JavaScript section', 'color: #FFB347; font-size: 12px');
+    console.log('%c   Each item needs: imageUrl, title, organizer, date', 'color: #FFB347; font-size: 12px');
+  };
+  document.head.appendChild(swalScript);
+  
+  // Fallback if SweetAlert2 fails to load
+  setTimeout(() => {
+    if (typeof Swal === 'undefined') {
+      renderGallery();
+      console.log('%c✨ Gallery Loaded (without SweetAlert2) ✨', 'color: #FFD966; font-size: 16px');
+    }
+  }, 2000);
+</script>
+
+<style>
+  .btn-outline-gold {
+    border: 1px solid #FFD966;
+    background: transparent;
+    color: #FFD966;
+    border-radius: 40px;
+    padding: 8px 28px;
+    transition: 0.25s;
+  }
+  .btn-outline-gold:hover {
+    background: #FFD966;
+    color: #1e2f38;
+  }
+  .image-overlay {
+    pointer-events: none;
+  }
+  .gallery-card {
+    cursor: pointer;
+  }
+</style>
+</body>
+</html>
+```

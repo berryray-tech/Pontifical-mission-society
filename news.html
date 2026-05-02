@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>News & Events | Pontifical Mission Society</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
+      color: #f0f3f8;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,215,150,0.5); border-radius: 10px; }
+
+    /* NAVBAR */
+    .navbar {
+      background: rgba(10, 25, 30, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, #FFE6B0, #FFC97E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .logo-icon { font-size: 1.8rem; color: #FFD966; margin-right: 8px; }
+    .nav-link {
+      color: rgba(255,248,225,0.9) !important;
+      font-weight: 500;
+      margin: 0 6px;
+      transition: 0.3s;
+    }
+    .nav-link:hover, .nav-link.active { color: #FFD966 !important; transform: translateY(-2px); }
+
+    /* Page Header */
+    .page-header {
+      position: relative;
+      padding: 140px 20px 60px;
+      text-align: center;
+    }
+    .glass-header {
+      background: rgba(20, 40, 48, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 3rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      display: inline-block;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+    .glass-header h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF6E0, #FFDA88);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .glass-header p { font-size: 1.2rem; opacity: 0.9; }
+
+    /* Filters */
+    .filter-section { margin-bottom: 3rem; }
+    .glass-filters {
+      background: rgba(25, 45, 55, 0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 8px;
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+    }
+    .filter-chip {
+      background: transparent;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 50px;
+      color: #f0f3f8;
+      font-weight: 500;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .filter-chip i { margin-right: 8px; }
+    .filter-chip.active {
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      color: #1e2f38;
+      box-shadow: 0 4px 15px rgba(255,217,102,0.3);
+    }
+    .filter-chip:hover:not(.active) {
+      background: rgba(255,217,102,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* News Cards */
+    .news-card {
+      background: rgba(25, 45, 55, 0.5);
+      backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      overflow: hidden;
+      transition: all 0.4s;
+      height: 100%;
+      cursor: pointer;
+    }
+    .news-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(35, 65, 78, 0.75);
+      border-color: #FFD966;
+    }
+    .news-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    .news-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .news-card:hover .news-img { transform: scale(1.08); }
+    .news-date-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      color: #FFD966;
+    }
+    .news-category {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(255,217,102,0.25);
+      backdrop-filter: blur(8px);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      color: #FFD966;
+    }
+    .news-content { padding: 1.5rem; }
+    .news-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .news-excerpt { font-size: 0.85rem; opacity: 0.85; margin-bottom: 1rem; }
+    .news-meta { display: flex; gap: 1rem; margin-bottom: 1rem; font-size: 0.75rem; color: #FFD966; }
+    .btn-read {
+      background: rgba(255,217,102,0.2);
+      border: 1px solid rgba(255,217,102,0.4);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      color: #FFD966;
+      transition: all 0.3s;
+      width: 100%;
+    }
+    .btn-read:hover {
+      background: #FFD966;
+      color: #1e2f38;
+    }
+
+    /* Modal */
+    .modal-content {
+      background: rgba(20, 40, 48, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid #FFD966;
+      border-radius: 1.5rem;
+      color: white;
+    }
+    .modal-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 1rem; }
+
+    /* Newsletter */
+    .newsletter-glass {
+      background: rgba(25, 45, 55, 0.5);
+      backdrop-filter: blur(14px);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      border: 1px solid rgba(255,230,170,0.3);
+      margin-top: 2rem;
+    }
+    .newsletter-input {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,230,170,0.3);
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+    }
+    .newsletter-input:focus {
+      background: rgba(255,255,255,0.2);
+      border-color: #FFD966;
+      box-shadow: none;
+      color: white;
+    }
+    .btn-subscribe {
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      color: #1e2f38;
+      font-weight: 600;
+    }
+    footer {
+      background: rgba(5, 20, 25, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* Admin Button */
+    .admin-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 55px;
+      height: 55px;
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+    }
+    .admin-btn:hover { transform: scale(1.1); }
+    .admin-btn i { font-size: 1.5rem; color: #1e2f38; }
+
+    .btn-outline-gold {
+      border: 1px solid #FFD966;
+      background: transparent;
+      color: #FFD966;
+      border-radius: 40px;
+      padding: 8px 28px;
+      transition: 0.25s;
+    }
+    .btn-outline-gold:hover {
+      background: #FFD966;
+      color: #1e2f38;
+    }
+
+    @media (max-width: 768px) {
+      .glass-header h1 { font-size: 2rem; }
+      .filter-chip { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <i class="fas fa-church logo-icon"></i>
+      <span>Pontifical Mission Society</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-heart me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link" href="animators.html"><i class="fas fa-users me-1"></i>Animators</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fas fa-hands-helping me-1"></i>Projects</a></li>
+        <li class="nav-item"><a class="nav-link active" href="news.html"><i class="fas fa-newspaper me-1"></i>News</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="glass-header" data-aos="fade-up">
+      <h1><i class="fas fa-newspaper me-2"></i>News & Events</h1>
+      <p>Stay updated with the latest happenings, testimonies, and announcements</p>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER SECTION -->
+<div class="container filter-section" data-aos="fade-up" data-aos-delay="200">
+  <div class="row justify-content-center">
+    <div class="col-auto">
+      <div class="glass-filters">
+        <button class="filter-chip active" data-filter="all"><i class="fas fa-globe"></i> All News</button>
+        <button class="filter-chip" data-filter="events"><i class="fas fa-calendar-alt"></i> Events</button>
+        <button class="filter-chip" data-filter="outreach"><i class="fas fa-hand-holding-heart"></i> Outreach</button>
+        <button class="filter-chip" data-filter="announcement"><i class="fas fa-bullhorn"></i> Announcements</button>
+        <button class="filter-chip" data-filter="testimony"><i class="fas fa-pray"></i> Testimonies</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS GRID -->
+<section class="news-section">
+  <div class="container">
+    <div class="row g-4" id="newsGrid">
+      <div class="col-12 text-center py-5">
+        <div class="spinner-border text-warning" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER SECTION -->
+<div class="container mb-5" data-aos="fade-up">
+  <div class="newsletter-glass">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h3><i class="fas fa-envelope-open-text me-2" style="color:#FFD966;"></i>Stay in the Loop</h3>
+        <p>Subscribe to receive weekly updates and prayer points.</p>
+      </div>
+      <div class="col-lg-6">
+        <div class="input-group">
+          <input type="email" class="form-control newsletter-input" placeholder="Enter your email" id="newsletterEmail">
+          <button class="btn-subscribe ms-2" id="subscribeBtn"><i class="fas fa-paper-plane me-2"></i>Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS MODAL -->
+<div class="modal fade" id="newsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle" style="color:#FFD966;"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" class="modal-img mb-3" alt="">
+        <p id="modalContent"></p>
+        <div id="modalExtra" class="mt-3"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-gold" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN BUTTON -->
+<div class="admin-btn" id="adminBtn">
+  <i class="fas fa-lock"></i>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal fade" id="adminLoginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#FFD966;"><i class="fas fa-shield-alt me-2"></i>Admin Login</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="loginUsername" class="form-control mb-3" placeholder="Username" style="background:rgba(255,255,255,0.1);border-color:#FFD966;color:white;">
+        <input type="password" id="loginPassword" class="form-control mb-3" placeholder="Password" style="background:rgba(255,255,255,0.1);border-color:#FFD966;color:white;">
+        <button class="btn btn-outline-gold w-100" id="doLoginBtn">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL MODAL -->
+<div class="modal fade" id="adminPanelModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color:#FFD966;"><i class="fas fa-database me-2"></i>News Management Dashboard</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <button class="btn btn-outline-gold mb-3" id="addNewsBtn"><i class="fas fa-plus me-2"></i>Add New News</button>
+        <div class="table-responsive">
+          <table class="table table-dark table-hover">
+            <thead>
+              <tr><th>ID</th><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="adminNewsList"></tbody>
+           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT NEWS MODAL -->
+<div class="modal fade" id="newsFormModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalTitle" style="color:#FFD966;"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId">
+        <input type="text" id="newsTitle" class="form-control mb-2" placeholder="Title" style="background:rgba(255,255,255,0.1);color:white;">
+        <select id="newsCategory" class="form-control mb-2" style="background:rgba(255,255,255,0.1);color:white;">
+          <option value="events">Events</option>
+          <option value="outreach">Outreach</option>
+          <option value="announcement">Announcement</option>
+          <option value="testimony">Testimony</option>
+        </select>
+        <input type="date" id="newsDate" class="form-control mb-2" style="background:rgba(255,255,255,0.1);color:white;">
+        <input type="text" id="newsAuthor" class="form-control mb-2" placeholder="Author" style="background:rgba(255,255,255,0.1);color:white;">
+        <input type="url" id="newsImage" class="form-control mb-2" placeholder="Image URL (Upload to Supabase Storage first)" style="background:rgba(255,255,255,0.1);color:white;">
+        <textarea id="newsExcerpt" class="form-control mb-2" rows="2" placeholder="Excerpt" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
+        <textarea id="newsContent" class="form-control mb-2" rows="5" placeholder="Full Content" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
+        <input type="text" id="statsAttendees" class="form-control mb-2" placeholder="Stats: Attendees (e.g., 2,000+)" style="background:rgba(255,255,255,0.1);color:white;">
+        <input type="text" id="statsSpeakers" class="form-control mb-2" placeholder="Stats: Speakers" style="background:rgba(255,255,255,0.1);color:white;">
+        <input type="text" id="statsSessions" class="form-control mb-2" placeholder="Stats: Sessions" style="background:rgba(255,255,255,0.1);color:white;">
+        <button class="btn btn-outline-gold w-100" id="saveNewsBtn">Save News</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><i class="fas fa-cross me-1"></i> © 2026 Pontifical Mission Society · Spreading the Gospel Worldwide</p>
+  <p>Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by BerryRay Technologies</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  AOS.init({ once: true, offset: 60, duration: 700 });
+
+  // ============================================
+  // SUPABASE CONFIGURATION - REPLACE WITH YOURS
+  // ============================================
+  // Go to your Supabase project -> Settings -> API
+  const SUPABASE_URL = 'https://ekhzbclqpelsrfefufpv.supabase.co/rest/v1/';  // Replace with your URL
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVraHpiY2xxcGVsc3JmZWZ1ZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjQ2MjUsImV4cCI6MjA5MjQ0MDYyNX0.7dJiDcV4q8Ss_4Ua19-L-VFSxThJKNLyBv__bfdx02M';  // Replace with your anon key
+  
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  
+  let currentFilter = 'all';
+  let currentNewsData = [];
+  let isAdminLoggedIn = false;
+
+  // ============================================
+  // LOAD NEWS FROM SUPABASE
+  // ============================================
+  async function loadNews(filter = 'all') {
+    document.getElementById('newsGrid').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div></div>';
+    
+    let query = supabase.from('news_articles').select('*').order('date', { ascending: false });
+    
+    if (filter !== 'all') {
+      query = query.eq('category', filter);
+    }
+    
+    const { data, error } = await query;
+    
+    if (error) {
+      console.error('Error loading news:', error);
+      document.getElementById('newsGrid').innerHTML = '<div class="col-12 text-center">Error loading news. Please try again.</div>';
+      return;
+    }
+    
+    currentNewsData = data || [];
+    renderNewsCards(currentNewsData);
+  }
+  
+  function renderNewsCards(newsArray) {
+    const grid = document.getElementById('newsGrid');
+    if (!grid) return;
+    
+    if (newsArray.length === 0) {
+      grid.innerHTML = '<div class="col-12 text-center"><div class="glass-header">No news found. Check back soon!</div></div>';
+      return;
+    }
+    
+    grid.innerHTML = '';
+    
+    newsArray.forEach((news, index) => {
+      const categoryIcons = { events: 'fa-calendar-alt', outreach: 'fa-hand-holding-heart', announcement: 'fa-bullhorn', testimony: 'fa-pray' };
+      const icon = categoryIcons[news.category] || 'fa-newspaper';
+      
+      const col = document.createElement('div');
+      col.className = 'col-md-6 col-lg-4';
+      col.setAttribute('data-aos', 'fade-up');
+      col.setAttribute('data-aos-delay', (index * 100).toString());
+      col.innerHTML = `
+        <div class="news-card" data-news-id="${news.id}">
+          <div class="news-img-wrapper">
+            <img src="${news.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'}" class="news-img" loading="lazy">
+            <div class="news-date-badge"><i class="far fa-calendar-alt me-1"></i> ${news.date}</div>
+            <div class="news-category"><i class="fas ${icon} me-1"></i> ${news.category.charAt(0).toUpperCase() + news.category.slice(1)}</div>
+          </div>
+          <div class="news-content">
+            <h3>${escapeHtml(news.title)}</h3>
+            <div class="news-meta"><span><i class="fas fa-user"></i> ${escapeHtml(news.author)}</span></div>
+            <p class="news-excerpt">${escapeHtml(news.excerpt.substring(0, 120))}${news.excerpt.length > 120 ? '...' : ''}</p>
+            <button class="btn-read" data-id="${news.id}"><i class="fas fa-book-open me-2"></i>Read Full Story</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(col);
+    });
+    
+    // Attach click handlers
+    document.querySelectorAll('.btn-read').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const news = currentNewsData.find(n => n.id === id);
+        if (news) openNewsModal(news);
+      });
+    });
+    
+    document.querySelectorAll('.news-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = parseInt(card.getAttribute('data-news-id'));
+        const news = currentNewsData.find(n => n.id === id);
+        if (news) openNewsModal(news);
+      });
+    });
+  }
+  
+  function openNewsModal(news) {
+    document.getElementById('modalTitle').innerHTML = `<i class="fas fa-newspaper me-2"></i>${escapeHtml(news.title)}`;
+    document.getElementById('modalImage').src = news.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop';
+    
+    let statsHtml = '';
+    if (news.stats_attendees) statsHtml += `<div><strong>${news.stats_attendees}</strong> Attendees</div>`;
+    if (news.stats_speakers) statsHtml += `<div><strong>${news.stats_speakers}</strong> Speakers</div>`;
+    if (news.stats_sessions) statsHtml += `<div><strong>${news.stats_sessions}</strong> Sessions</div>`;
+    
+    const extraHtml = statsHtml ? `<div class="d-flex gap-3 p-3 bg-warning bg-opacity-10 rounded mb-3">${statsHtml}</div>` : '';
+    
+    document.getElementById('modalContent').innerHTML = `<p>${escapeHtml(news.full_content)}</p>${extraHtml}`;
+    document.getElementById('modalExtra').innerHTML = `
+      <div class="d-flex gap-3 flex-wrap">
+        <span class="badge bg-warning bg-opacity-25 text-warning px-3 py-2"><i class="far fa-calendar-alt me-1"></i> ${news.date}</span>
+        <span class="badge bg-warning bg-opacity-25 text-warning px-3 py-2"><i class="fas fa-user me-1"></i> By: ${escapeHtml(news.author)}</span>
+      </div>
+    `;
+    
+    new bootstrap.Modal(document.getElementById('newsModal')).show();
+  }
+  
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+  }
+  
+  // ============================================
+  // ADMIN FUNCTIONS
+  // ============================================
+  async function loadAdminNews() {
+    const { data } = await supabase.from('news_articles').select('*').order('date', { ascending: false });
+    if (data) {
+      const tbody = document.getElementById('adminNewsList');
+      tbody.innerHTML = data.map(news => `
+        <tr>
+          <td>${news.id}</td>
+          <td>${escapeHtml(news.title)}</td>
+          <td>${news.category}</td>
+          <td>${news.date}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-warning me-1 edit-news" data-id="${news.id}"><i class="fas fa-edit"></i></button>
+            <button class="btn btn-sm btn-outline-danger delete-news" data-id="${news.id}"><i class="fas fa-trash"></i></button>
+           </td>
+         </tr>
+      `).join('');
+      
+      document.querySelectorAll('.edit-news').forEach(btn => {
+        btn.addEventListener('click', () => editNews(parseInt(btn.dataset.id)));
+      });
+      document.querySelectorAll('.delete-news').forEach(btn => {
+        btn.addEventListener('click', () => deleteNews(parseInt(btn.dataset.id)));
+      });
+    }
+  }
+  
+  async function editNews(id) {
+    const news = currentNewsData.find(n => n.id === id);
+    if (news) {
+      document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-edit me-2"></i>Edit News';
+      document.getElementById('editId').value = news.id;
+      document.getElementById('newsTitle').value = news.title;
+      document.getElementById('newsCategory').value = news.category;
+      document.getElementById('newsDate').value = news.date;
+      document.getElementById('newsAuthor').value = news.author;
+      document.getElementById('newsImage').value = news.image_url || '';
+      document.getElementById('newsExcerpt').value = news.excerpt;
+      document.getElementById('newsContent').value = news.full_content;
+      document.getElementById('statsAttendees').value = news.stats_attendees || '';
+      document.getElementById('statsSpeakers').value = news.stats_speakers || '';
+      document.getElementById('statsSessions').value = news.stats_sessions || '';
+      new bootstrap.Modal(document.getElementById('newsFormModal')).show();
+    }
+  }
+  
+  async function deleteNews(id) {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    });
+    
+    if (result.isConfirmed) {
+      const { error } = await supabase.from('news_articles').delete().eq('id', id);
+      if (error) {
+        Swal.fire('Error!', 'Failed to delete news.', 'error');
+      } else {
+        Swal.fire('Deleted!', 'News has been deleted.', 'success');
+        loadNews(currentFilter);
+        if (isAdminLoggedIn) loadAdminNews();
+      }
+    }
+  }
+  
+  async function saveNews() {
+    const id = document.getElementById('editId').value;
+    const newsData = {
+      title: document.getElementById('newsTitle').value,
+      category: document.getElementById('newsCategory').value,
+      date: document.getElementById('newsDate').value,
+      author: document.getElementById('newsAuthor').value,
+      image_url: document.getElementById('newsImage').value,
+      excerpt: document.getElementById('newsExcerpt').value,
+      full_content: document.getElementById('newsContent').value,
+      stats_attendees: document.getElementById('statsAttendees').value,
+      stats_speakers: document.getElementById('statsSpeakers').value,
+      stats_sessions: document.getElementById('statsSessions').value
+    };
+    
+    if (!newsData.title || !newsData.category || !newsData.date || !newsData.author || !newsData.excerpt || !newsData.full_content) {
+      Swal.fire('Error!', 'Please fill all required fields.', 'error');
+      return;
+    }
+    
+    let error;
+    if (id) {
+      const result = await supabase.from('news_articles').update(newsData).eq('id', id);
+      error = result.error;
+    } else {
+      const result = await supabase.from('news_articles').insert([newsData]);
+      error = result.error;
+    }
+    
+    if (error) {
+      Swal.fire('Error!', 'Failed to save news.', 'error');
+    } else {
+      Swal.fire('Success!', 'News saved successfully.', 'success');
+      bootstrap.Modal.getInstance(document.getElementById('newsFormModal')).hide();
+      loadNews(currentFilter);
+      if (isAdminLoggedIn) loadAdminNews();
+      document.getElementById('editId').value = '';
+    }
+  }
+  
+  // ============================================
+  // EVENT LISTENERS
+  // ============================================
+  document.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      loadNews(currentFilter);
+    });
+  });
+  
+  document.getElementById('subscribeBtn')?.addEventListener('click', () => {
+    const email = document.getElementById('newsletterEmail').value;
+    if (email && email.includes('@')) {
+      Swal.fire('Subscribed!', `We'll send updates to ${email}`, 'success');
+      document.getElementById('newsletterEmail').value = '';
+    } else {
+      Swal.fire('Error!', 'Please enter a valid email address.', 'error');
+    }
+  });
+  
+  document.getElementById('adminBtn')?.addEventListener('click', () => {
+    if (isAdminLoggedIn) {
+      loadAdminNews();
+      new bootstrap.Modal(document.getElementById('adminPanelModal')).show();
+    } else {
+      new bootstrap.Modal(document.getElementById('adminLoginModal')).show();
+    }
+  });
+  
+  document.getElementById('doLoginBtn')?.addEventListener('click', async () => {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    // Simple authentication - Replace with proper Supabase auth if needed
+    if (username === 'admin' && password === 'admin123') {
+      isAdminLoggedIn = true;
+      document.getElementById('adminBtn').innerHTML = '<i class="fas fa-cog"></i>';
+      bootstrap.Modal.getInstance(document.getElementById('adminLoginModal')).hide();
+      Swal.fire('Success!', 'Logged in as admin.', 'success');
+      loadAdminNews();
+      new bootstrap.Modal(document.getElementById('adminPanelModal')).show();
+    } else {
+      Swal.fire('Error!', 'Invalid credentials.', 'error');
+    }
+  });
+  
+  document.getElementById('addNewsBtn')?.addEventListener('click', () => {
+    document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-plus me-2"></i>Add New News';
+    document.getElementById('editId').value = '';
+    document.getElementById('newsTitle').value = '';
+    document.getElementById('newsCategory').value = 'events';
+    document.getElementById('newsDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('newsAuthor').value = '';
+    document.getElementById('newsImage').value = '';
+    document.getElementById('newsExcerpt').value = '';
+    document.getElementById('newsContent').value = '';
+    document.getElementById('statsAttendees').value = '';
+    document.getElementById('statsSpeakers').value = '';
+    document.getElementById('statsSessions').value = '';
+    new bootstrap.Modal(document.getElementById('newsFormModal')).show();
+  });
+  
+  document.getElementById('saveNewsBtn')?.addEventListener('click', saveNews);
+  
+  // ============================================
+  // INITIAL LOAD
+  // ============================================
+  loadNews('all');
+  
+  console.log('%c✨ News Management System with Supabase Loaded ✨', 'color: #FFD966; font-size: 16px');
+  console.log('%c📸 TO SETUP: 1. Create Supabase account 2. Create "news_articles" table 3. Replace SUPABASE_URL and SUPABASE_ANON_KEY', 'color: #FFB347; font-size: 12px');
+  console.log('%c📸 Admin Login: username: admin | password: admin123', 'color: #FFB347; font-size: 12px');
+</script>
+
+</body>
+</html>

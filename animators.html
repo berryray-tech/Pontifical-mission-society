@@ -1,0 +1,786 @@
+Here is the updated animators.html with each animator group displayed in a modern glass carousel slideshow, featuring hover effects and 10 pictures for each animator.
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Animators | Pontifical Mission Society - Leadership Gallery</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
+      color: #f0f3f8;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,215,150,0.5); border-radius: 10px; }
+
+    /* NAVBAR */
+    .navbar {
+      background: rgba(10, 25, 30, 0.65);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      padding: 12px 0;
+    }
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.7rem;
+      background: linear-gradient(135deg, #FFE6B0, #FFC97E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+    }
+    .logo-icon { font-size: 1.8rem; color: #FFD966; margin-right: 8px; }
+    .nav-link {
+      color: rgba(255,248,225,0.9) !important;
+      font-weight: 500;
+      margin: 0 6px;
+      transition: 0.3s;
+    }
+    .nav-link:hover, .nav-link.active { color: #FFD966 !important; transform: translateY(-2px); }
+
+    /* Page Header */
+    .page-header {
+      position: relative;
+      padding: 140px 20px 60px;
+      text-align: center;
+    }
+    .glass-header {
+      background: rgba(20, 40, 48, 0.55);
+      backdrop-filter: blur(16px);
+      border-radius: 3rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,230,170,0.35);
+      display: inline-block;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
+    }
+    .glass-header h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #FFF6E0, #FFDA88);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .glass-header p { font-size: 1.2rem; opacity: 0.9; }
+
+    /* Category Section Titles */
+    .category-section {
+      margin-bottom: 80px;
+    }
+    .category-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .category-title h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFE6B0, #FFD966);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      padding: 0 20px;
+      position: relative;
+    }
+    .category-title h2:before,
+    .category-title h2:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 50px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #FFD966, transparent);
+    }
+    .category-title h2:before { left: -60px; }
+    .category-title h2:after { right: -60px; }
+    @media (max-width: 768px) {
+      .category-title h2:before,
+      .category-title h2:after { width: 30px; }
+      .category-title h2:before { left: -40px; }
+      .category-title h2:after { right: -40px; }
+    }
+
+    /* Modern Glass Carousel Container */
+    .carousel-section {
+      position: relative;
+      padding: 20px 0;
+    }
+    .glass-carousel {
+      background: rgba(25, 45, 55, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 2rem;
+      padding: 30px 20px;
+      border: 1px solid rgba(255,230,170,0.2);
+    }
+    
+    /* Animator Slide Card */
+    .animator-slide {
+      background: rgba(20, 40, 48, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      overflow: hidden;
+      height: 100%;
+      position: relative;
+    }
+    .animator-slide:hover {
+      transform: translateY(-10px);
+      border-color: #FFD966;
+      background: rgba(35, 65, 78, 0.8);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+    }
+    .animator-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 1.5rem;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(255,217,102,0), rgba(255,217,102,0));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: 0.4s;
+      pointer-events: none;
+    }
+    .animator-slide:hover::before {
+      background: linear-gradient(135deg, #FFD966, #FFB347, #FFD966);
+      background-size: 200% 200%;
+      animation: borderGlow 1.5s ease infinite;
+    }
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .animator-slide-inner {
+      padding: 1.8rem;
+      text-align: center;
+    }
+    .animator-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #FFD966;
+      margin: 0 auto 1rem;
+      transition: transform 0.3s;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    .animator-slide:hover .animator-avatar {
+      transform: scale(1.05);
+    }
+    .animator-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #FFF, #FFE2A4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.3rem;
+    }
+    .animator-role {
+      display: inline-block;
+      background: rgba(255,217,102,0.2);
+      backdrop-filter: blur(4px);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FFD966;
+      margin: 0.5rem 0;
+    }
+    .animator-bio {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      margin: 0.8rem 0;
+      line-height: 1.5;
+      min-height: 60px;
+    }
+    .social-icons-carousel {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.4s;
+    }
+    .animator-slide:hover .social-icons-carousel {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .social-icon-carousel {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      color: #FFE2A4;
+      font-size: 1rem;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .social-icon-carousel:hover {
+      background: #FFD966;
+      color: #1e2f38;
+      transform: translateY(-3px);
+    }
+    
+    /* Swiper Navigation */
+    .swiper-button-next, .swiper-button-prev {
+      color: #FFD966;
+      background: rgba(0,0,0,0.5);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 1.2rem;
+    }
+    .swiper-pagination-bullet {
+      background: rgba(255,255,255,0.5);
+    }
+    .swiper-pagination-bullet-active {
+      background: #FFD966;
+    }
+    
+    /* Modal Styling */
+    .modal-content {
+      background: rgba(20, 40, 48, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid #FFD966;
+      border-radius: 1.5rem;
+      color: white;
+    }
+    .modal-header {
+      border-bottom-color: rgba(255,217,102,0.3);
+    }
+    .btn-outline-gold {
+      border: 1px solid #FFD966;
+      background: transparent;
+      color: #FFD966;
+      border-radius: 40px;
+      padding: 8px 28px;
+      transition: 0.25s;
+    }
+    .btn-outline-gold:hover {
+      background: #FFD966;
+      color: #1e2f38;
+    }
+    
+    footer {
+      background: rgba(5, 20, 25, 0.8);
+      backdrop-filter: blur(12px);
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,210,130,0.2);
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .glass-header h1 { font-size: 2rem; }
+      .animator-avatar { width: 100px; height: 100px; }
+      .animator-name { font-size: 1.1rem; }
+      .swiper-button-next, .swiper-button-prev { width: 35px; height: 35px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <i class="fas fa-church logo-icon"></i>
+      <span>Pontifical Mission Society</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-heart me-1"></i>About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="animators.html"><i class="fas fa-users me-1"></i>Animators</a></li>
+        <li class="nav-item"><a class="nav-link" href="projects.html"><i class="fas fa-hands-helping me-1"></i>Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html"><i class="fas fa-newspaper me-1"></i>News</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="container">
+    <div class="glass-header" data-aos="fade-up">
+      <h1><i class="fas fa-crown me-2"></i>Our Animators & Leaders</h1>
+      <p>Dedicated servants guiding our missionary work with wisdom and passion</p>
+      <div class="mt-3"><i class="fas fa-star-of-life" style="color:#FFD966;"></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- COORDINATORS CAROUSEL SECTION -->
+<section class="container category-section" data-aos="fade-up">
+  <div class="category-title">
+    <h2><i class="fas fa-users me-2"></i>COORDINATORS</h2>
+  </div>
+  <div class="glass-carousel">
+    <div class="swiper coordinators-swiper">
+      <div class="swiper-wrapper" id="coordinatorsSwiperWrapper"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HCA ANIMATORS CAROUSEL SECTION -->
+<section class="container category-section" data-aos="fade-up" data-aos-delay="100">
+  <div class="category-title">
+    <h2><i class="fas fa-hands-helping me-2"></i>HCA ANIMATORS</h2>
+  </div>
+  <div class="glass-carousel">
+    <div class="swiper hca-swiper">
+      <div class="swiper-wrapper" id="hcaSwiperWrapper"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOMM ANIMATORS CAROUSEL SECTION -->
+<section class="container category-section" data-aos="fade-up" data-aos-delay="200">
+  <div class="category-title">
+    <h2><i class="fas fa-church me-2"></i>YOMM ANIMATORS</h2>
+  </div>
+  <div class="glass-carousel">
+    <div class="swiper yomm-swiper">
+      <div class="swiper-wrapper" id="yommSwiperWrapper"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL FOR DETAILS -->
+<div class="modal fade" id="leaderModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom-color: rgba(255,217,102,0.3);">
+        <h5 class="modal-title" style="color:#FFD966;" id="modalName"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" class="img-fluid rounded-4 mb-3" style="width: 100%; max-height: 250px; object-fit: cover;">
+        <p id="modalBio"></p>
+        <hr style="background: rgba(255,217,102,0.3);">
+        <p><i class="fas fa-phone-alt me-2" style="color:#FFD966;"></i> <span id="modalPhone"></span></p>
+        <p><i class="fas fa-envelope me-2" style="color:#FFD966;"></i> <span id="modalEmail"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><i class="fas fa-cross me-1"></i> © 2026 Pontifical Mission Society · Spreading the Gospel Worldwide</p>
+  <p style="opacity:0.7;">Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by BerryRay Technologies</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+<script>
+  AOS.init({ once: true, offset: 60, duration: 700 });
+
+  // ============================================
+  // ANIMATORS DATA - EACH WITH 10 PICTURES
+  // ============================================
+  
+  // Helper function to generate 10 picture URLs for each animator
+  // Replace these placeholder URLs with your actual images
+  function generatePicturePlaceholders(name, baseNumber) {
+    const pictures = [];
+    for (let i = 1; i <= 10; i++) {
+      // Using placeholder images - REPLACE WITH YOUR ACTUAL IMAGE URLs
+      pictures.push({
+        url: `https://picsum.photos/id/${baseNumber + i}/400/400`,
+        title: `${name} - Photo ${i}`
+      });
+    }
+    return pictures;
+  }
+
+  // COORDINATORS DATA
+  const coordinators = [
+    {
+      id: 1,
+      name: "Bro. John Okafor",
+      role: "Head Coordinator",
+      phone: "+234 802 345 6789",
+      email: "john.okafor@pms.org",
+      bio: "Coordinating all church activities with excellence and dedication. Ensures seamless execution of programs and events across the archdiocese.",
+      img: "https://randomuser.me/api/portraits/men/32.jpg",
+      pictures: generatePicturePlaceholders("Bro. John Okafor", 100)
+    },
+    {
+      id: 2,
+      name: "Sis. Mary Adebayo",
+      role: "Events Coordinator",
+      phone: "+234 803 456 7890",
+      email: "mary.adebayo@pms.org",
+      bio: "Passionate about organizing impactful events that bring the community together in worship and fellowship.",
+      img: "https://randomuser.me/api/portraits/women/68.jpg",
+      pictures: generatePicturePlaceholders("Sis. Mary Adebayo", 110)
+    },
+    {
+      id: 3,
+      name: "Bro. Peter Eze",
+      role: "Logistics Coordinator",
+      phone: "+234 804 567 8901",
+      email: "peter.eze@pms.org",
+      bio: "Ensures all church operations run smoothly with attention to detail and strategic planning.",
+      img: "https://randomuser.me/api/portraits/men/45.jpg",
+      pictures: generatePicturePlaceholders("Bro. Peter Eze", 120)
+    },
+    {
+      id: 4,
+      name: "Sis. Grace Nwosu",
+      role: "Programs Coordinator",
+      phone: "+234 805 678 9012",
+      email: "grace.nwosu@pms.org",
+      bio: "Designs and implements missionary programs that engage and inspire the faithful.",
+      img: "https://randomuser.me/api/portraits/women/42.jpg",
+      pictures: generatePicturePlaceholders("Sis. Grace Nwosu", 130)
+    },
+    {
+      id: 5,
+      name: "Bro. Michael Okonkwo",
+      role: "Youth Coordinator",
+      phone: "+234 806 789 0123",
+      email: "michael.okonkwo@pms.org",
+      bio: "Passionate about youth development and missionary formation for young people.",
+      img: "https://randomuser.me/api/portraits/men/52.jpg",
+      pictures: generatePicturePlaceholders("Bro. Michael Okonkwo", 140)
+    }
+  ];
+
+  // HCA ANIMATORS DATA
+  const hcaAnimators = [
+    {
+      id: 6,
+      name: "Dr. Grace Williams",
+      role: "HCA Director",
+      phone: "+234 805 678 9012",
+      email: "grace.williams@pms.org",
+      bio: "Leading the Health Care Awareness ministry, promoting wellness and providing medical outreach to communities.",
+      img: "https://randomuser.me/api/portraits/women/45.jpg",
+      pictures: generatePicturePlaceholders("Dr. Grace Williams", 200)
+    },
+    {
+      id: 7,
+      name: "Bro. Emmanuel Chukwu",
+      role: "HCA Coordinator",
+      phone: "+234 806 789 0123",
+      email: "emmanuel.chukwu@pms.org",
+      bio: "Coordinating health awareness programs and free medical checkups for the community.",
+      img: "https://randomuser.me/api/portraits/men/52.jpg",
+      pictures: generatePicturePlaceholders("Bro. Emmanuel Chukwu", 210)
+    },
+    {
+      id: 8,
+      name: "Sis. Esther Nkosi",
+      role: "Wellness Advocate",
+      phone: "+234 807 890 1234",
+      email: "esther.nkosi@pms.org",
+      bio: "Passionate about mental health awareness and holistic wellness within the church community.",
+      img: "https://randomuser.me/api/portraits/women/33.jpg",
+      pictures: generatePicturePlaceholders("Sis. Esther Nkosi", 220)
+    },
+    {
+      id: 9,
+      name: "Bro. David Uche",
+      role: "Medical Outreach Lead",
+      phone: "+234 808 901 2345",
+      email: "david.uche@pms.org",
+      bio: "Organizes free medical missions and health education programs for underserved communities.",
+      img: "https://randomuser.me/api/portraits/men/62.jpg",
+      pictures: generatePicturePlaceholders("Bro. David Uche", 230)
+    },
+    {
+      id: 10,
+      name: "Sis. Catherine Obi",
+      role: "Child Health Coordinator",
+      phone: "+234 809 012 3456",
+      email: "catherine.obi@pms.org",
+      bio: "Focuses on children's health and nutrition programs in mission territories.",
+      img: "https://randomuser.me/api/portraits/women/56.jpg",
+      pictures: generatePicturePlaceholders("Sis. Catherine Obi", 240)
+    }
+  ];
+
+  // YOMM ANIMATORS DATA
+  const yommAnimators = [
+    {
+      id: 11,
+      name: "Pastor David Okonkwo",
+      role: "YOMM Patron",
+      phone: "+234 808 901 2345",
+      email: "david.okonkwo@pms.org",
+      bio: "Guiding the Youth of Mary's Movement with wisdom and spiritual direction.",
+      img: "https://randomuser.me/api/portraits/men/75.jpg",
+      pictures: generatePicturePlaceholders("Pastor David Okonkwo", 300)
+    },
+    {
+      id: 12,
+      name: "Sis. Chioma Eze",
+      role: "YOMM President",
+      phone: "+234 809 012 3456",
+      email: "chioma.eze@pms.org",
+      bio: "Leading the youth in spiritual growth, fellowship, and community impact initiatives.",
+      img: "https://randomuser.me/api/portraits/women/38.jpg",
+      pictures: generatePicturePlaceholders("Sis. Chioma Eze", 310)
+    },
+    {
+      id: 13,
+      name: "Bro. Michael Adebayo Jr.",
+      role: "YOMM Secretary",
+      phone: "+234 810 123 4567",
+      email: "michael.adebayo@pms.org",
+      bio: "Coordinating YOMM activities and maintaining communication with members.",
+      img: "https://randomuser.me/api/portraits/men/22.jpg",
+      pictures: generatePicturePlaceholders("Bro. Michael Adebayo Jr.", 320)
+    },
+    {
+      id: 14,
+      name: "Sis. Faith Johnson",
+      role: "YOMM Treasurer",
+      phone: "+234 811 234 5678",
+      email: "faith.johnson@pms.org",
+      bio: "Managing YOMM resources and supporting youth initiatives.",
+      img: "https://randomuser.me/api/portraits/women/56.jpg",
+      pictures: generatePicturePlaceholders("Sis. Faith Johnson", 330)
+    },
+    {
+      id: 15,
+      name: "Bro. Anthony Okafor",
+      role: "YOMM Program Director",
+      phone: "+234 812 345 6789",
+      email: "anthony.okafor@pms.org",
+      bio: "Designs and implements missionary formation programs for young people.",
+      img: "https://randomuser.me/api/portraits/men/91.jpg",
+      pictures: generatePicturePlaceholders("Bro. Anthony Okafor", 340)
+    }
+  ];
+
+  // Combine all animators for modal lookup
+  const allAnimators = [...coordinators, ...hcaAnimators, ...yommAnimators];
+
+  // Function to create slide HTML
+  function createAnimatorSlide(animator) {
+    return `
+      <div class="swiper-slide">
+        <div class="animator-slide" data-id="${animator.id}">
+          <div class="animator-slide-inner">
+            <img src="${animator.img}" alt="${animator.name}" class="animator-avatar" loading="lazy">
+            <h3 class="animator-name">${escapeHtml(animator.name)}</h3>
+            <span class="animator-role"><i class="fas fa-user-check me-1"></i> ${escapeHtml(animator.role)}</span>
+            <p class="animator-bio">${escapeHtml(animator.bio.substring(0, 100))}${animator.bio.length > 100 ? '...' : ''}</p>
+            <div class="social-icons-carousel">
+              <a href="#" class="social-icon-carousel" data-social="whatsapp" data-phone="${escapeHtml(animator.phone)}"><i class="fab fa-whatsapp"></i></a>
+              <a href="#" class="social-icon-carousel" data-social="instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon-carousel" data-social="facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon-carousel info-trigger" data-id="${animator.id}"><i class="fas fa-images"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+  }
+
+  // Render all carousels
+  function renderCarousels() {
+    // Coordinators
+    const coordWrapper = document.getElementById('coordinatorsSwiperWrapper');
+    if (coordWrapper) {
+      coordWrapper.innerHTML = coordinators.map(c => createAnimatorSlide(c)).join('');
+    }
+    
+    // HCA Animators
+    const hcaWrapper = document.getElementById('hcaSwiperWrapper');
+    if (hcaWrapper) {
+      hcaWrapper.innerHTML = hcaAnimators.map(c => createAnimatorSlide(c)).join('');
+    }
+    
+    // YOMM Animators
+    const yommWrapper = document.getElementById('yommSwiperWrapper');
+    if (yommWrapper) {
+      yommWrapper.innerHTML = yommAnimators.map(c => createAnimatorSlide(c)).join('');
+    }
+    
+    // Attach event listeners after rendering
+    attachEventListeners();
+  }
+  
+  // Initialize Swipers
+  let coordSwiper, hcaSwiper, yommSwiper;
+  
+  function initSwipers() {
+    coordSwiper = new Swiper('.coordinators-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      navigation: { nextEl: '.coordinators-swiper .swiper-button-next', prevEl: '.coordinators-swiper .swiper-button-prev' },
+      pagination: { el: '.coordinators-swiper .swiper-pagination', clickable: true },
+      breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+    });
+    
+    hcaSwiper = new Swiper('.hca-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      navigation: { nextEl: '.hca-swiper .swiper-button-next', prevEl: '.hca-swiper .swiper-button-prev' },
+      pagination: { el: '.hca-swiper .swiper-pagination', clickable: true },
+      breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+    });
+    
+    yommSwiper = new Swiper('.yomm-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+      navigation: { nextEl: '.yomm-swiper .swiper-button-next', prevEl: '.yomm-swiper .swiper-button-prev' },
+      pagination: { el: '.yomm-swiper .swiper-pagination', clickable: true },
+      breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+    });
+  }
+  
+  // Open picture gallery modal with 10 images
+  function openPictureGallery(animator) {
+    const modal = new bootstrap.Modal(document.getElementById('leaderModal'));
+    
+    document.getElementById('modalName').innerHTML = `<i class="fas fa-images me-2"></i>${escapeHtml(animator.name)} - Gallery`;
+    document.getElementById('modalImage').src = animator.img;
+    document.getElementById('modalBio').innerHTML = animator.bio;
+    document.getElementById('modalPhone').innerHTML = animator.phone;
+    document.getElementById('modalEmail').innerHTML = animator.email;
+    
+    // Add picture gallery to modal
+    const modalBody = document.querySelector('#leaderModal .modal-body');
+    const existingGallery = document.getElementById('pictureGallery');
+    if (existingGallery) existingGallery.remove();
+    
+    const galleryDiv = document.createElement('div');
+    galleryDiv.id = 'pictureGallery';
+    galleryDiv.className = 'mt-4';
+    galleryDiv.innerHTML = '<h6 style="color:#FFD966;"><i class="fas fa-images me-2"></i>10 Pictures</h6><div class="row g-2">';
+    
+    animator.pictures.forEach((pic, idx) => {
+      galleryDiv.innerHTML += `
+        <div class="col-6 col-md-4 col-lg-3">
+          <div class="gallery-thumb" style="cursor: pointer; transition: 0.3s;" onclick="window.open('${pic.url}', '_blank')">
+            <img src="${pic.url}" class="img-fluid rounded-3" style="height: 100px; width: 100%; object-fit: cover; border: 1px solid rgba(255,217,102,0.3);">
+            <small class="text-muted">${pic.title}</small>
+          </div>
+        </div>
+      `;
+    });
+    galleryDiv.innerHTML += '</div>';
+    
+    modalBody.appendChild(galleryDiv);
+    modal.show();
+  }
+  
+  // Attach event listeners for social icons and info triggers
+  function attachEventListeners() {
+    // Info triggers (picture gallery)
+    document.querySelectorAll('.info-trigger').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = parseInt(btn.getAttribute('data-id'));
+        const animator = allAnimators.find(a => a.id === id);
+        if (animator) {
+          openPictureGallery(animator);
+        }
+      });
+    });
+    
+    // WhatsApp
+    document.querySelectorAll('.social-icon-carousel[data-social="whatsapp"]').forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.preventDefault();
+        const phone = icon.getAttribute('data-phone');
+        alert(`📱 WhatsApp contact: ${phone}\n(Connect with our leader for prayer or inquiries!)`);
+      });
+    });
+    
+    // Instagram
+    document.querySelectorAll('.social-icon-carousel[data-social="instagram"]').forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert(`✨ Follow us on Instagram for daily inspiration!`);
+      });
+    });
+    
+    // Facebook
+    document.querySelectorAll('.social-icon-carousel[data-social="facebook"]').forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert(`👍 Like our Facebook page to stay connected!`);
+      });
+    });
+  }
+  
+  // Initialize everything
+  renderCarousels();
+  initSwipers();
+  
+  console.log('%c✨ Animators Page Loaded | Each Animator in Glass Carousel with 10 Pictures ✨', 'color: #FFD966; font-size: 16px');
+  console.log('%c📸 To add your own images, replace the picture URLs in the generatePicturePlaceholders function or modify the pictures array for each animator.', 'color: #FFB347; font-size: 12px');
+</script>
+
+</body>
+</html>
+```
