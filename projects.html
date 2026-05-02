@@ -261,47 +261,46 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<!-- Load Supabase JS from CDN (only once) -->
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
   (function() {
     AOS.init({ once: true, offset: 60, duration: 700 });
 
-    // Your Supabase credentials
     const SUPABASE_URL = 'https://ekhzbclqpelsrfefufpv.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVraHpiY2xxcGVsc3JmZWZ1ZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjQ2MjUsImV4cCI6MjA5MjQ0MDYyNX0.7dJiDcV4q8Ss_4Ua19-L-VFSxThJKNLyBv__bfdx02M';
     
-    // Create client (using a different variable name to avoid conflicts)
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     
     let allProjects = [];
 
     async function loadProjects() {
-      // Show loading spinner
-      document.getElementById('ongoingGrid').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div><p class="mt-2">Loading projects...</p></div>';
-      document.getElementById('completedGrid').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div><p class="mt-2">Loading projects...</p></div>';
-      document.getElementById('upcomingGrid').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div><p class="mt-2">Loading projects...</p></div>';
+      // Show loading
+      const loadingHtml = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div><p class="mt-2">Loading projects...</p></div>';
+      document.getElementById('ongoingGrid').innerHTML = loadingHtml;
+      document.getElementById('completedGrid').innerHTML = loadingHtml;
+      document.getElementById('upcomingGrid').innerHTML = loadingHtml;
       
       try {
+        // Try to fetch from projects table
         const { data, error } = await supabaseClient.from('projects').select('*');
         
         if (error) {
           console.error('Supabase Error:', error);
-          showError('Error loading projects: ' + error.message);
+          showError('Error: ' + error.message);
           return;
         }
         
         if (data && data.length > 0) {
           allProjects = data;
-          console.log('Projects loaded:', data.length);
+          console.log('✅ Projects loaded successfully:', data.length);
           displayProjects(data);
         } else {
-          console.log('No projects found in database');
+          console.log('⚠️ No projects found in database');
           showNoProjects();
         }
       } catch (err) {
-        console.error('Error:', err);
+        console.error('Connection Error:', err);
         showError('Connection error. Please check your internet connection.');
       }
     }
@@ -337,7 +336,7 @@
         <div class="col-md-6 col-lg-4">
           <div class="project-card" data-id="${p.id}" data-type="${type}">
             <div class="project-img-wrapper">
-              <img src="${p.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'}" class="project-img" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'">
+              <img src="${p.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'}" class="project-img" loading="lazy">
               <div class="project-overlay">${badge}<h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.description.substring(0, 100))}${p.description.length > 100 ? '...' : ''}</p></div>
             </div>
             <div class="project-info">${stats}</div>
@@ -382,7 +381,7 @@
     }
     
     function showNoProjects() {
-      const msg = '<div class="col-12 text-center"><div class="glass-header">No projects found. Please add projects to your Supabase "projects" table.</div></div>';
+      const msg = '<div class="col-12 text-center"><div class="glass-header">⚠️ No projects found. Please add projects to your Supabase "projects" table.</div></div>';
       document.getElementById('ongoingGrid').innerHTML = msg;
       document.getElementById('completedGrid').innerHTML = msg;
       document.getElementById('upcomingGrid').innerHTML = msg;
