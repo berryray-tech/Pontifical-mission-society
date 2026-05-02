@@ -19,29 +19,20 @@
   <script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(145deg, #0b1a22 0%, #132b34 50%, #1e3e4a 100%);
       color: #f0f3f8;
       overflow-x: hidden;
-      min-height: 100vh;
     }
-
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
     ::-webkit-scrollbar-thumb { background: rgba(255,215,150,0.5); border-radius: 10px; }
 
-    /* NAVBAR */
     .navbar {
       background: rgba(10, 25, 30, 0.65);
       backdrop-filter: blur(14px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       padding: 12px 0;
     }
     .navbar-brand {
@@ -53,20 +44,10 @@
       color: transparent !important;
     }
     .logo-icon { font-size: 1.8rem; color: #FFD966; margin-right: 8px; }
-    .nav-link {
-      color: rgba(255,248,225,0.9) !important;
-      font-weight: 500;
-      margin: 0 6px;
-      transition: 0.3s;
-    }
+    .nav-link { color: rgba(255,248,225,0.9) !important; font-weight: 500; margin: 0 6px; transition: 0.3s; }
     .nav-link:hover, .nav-link.active { color: #FFD966 !important; transform: translateY(-2px); }
 
-    /* Page Header */
-    .page-header {
-      position: relative;
-      padding: 140px 20px 60px;
-      text-align: center;
-    }
+    .page-header { padding: 140px 20px 60px; text-align: center; }
     .glass-header {
       background: rgba(20, 40, 48, 0.55);
       backdrop-filter: blur(16px);
@@ -84,9 +65,7 @@
       background-clip: text;
       color: transparent;
     }
-    .glass-header p { font-size: 1.2rem; opacity: 0.9; }
 
-    /* Glass Tabs */
     .glass-tabs {
       background: rgba(25, 45, 55, 0.4);
       backdrop-filter: blur(12px);
@@ -112,12 +91,7 @@
       color: #1e2f38;
       box-shadow: 0 4px 15px rgba(255,217,102,0.3);
     }
-    .glass-tab-btn:hover:not(.active) {
-      background: rgba(255,217,102,0.2);
-      transform: translateY(-2px);
-    }
 
-    /* Project Cards */
     .project-card {
       background: rgba(25, 45, 55, 0.5);
       backdrop-filter: blur(14px);
@@ -127,45 +101,17 @@
       transition: all 0.4s;
       height: 100%;
       cursor: pointer;
-      position: relative;
-    }
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: 1.5rem;
-      padding: 2px;
-      background: linear-gradient(135deg, rgba(255,217,102,0), rgba(255,217,102,0));
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-      transition: 0.4s;
-      pointer-events: none;
-    }
-    .project-card:hover::before {
-      background: linear-gradient(135deg, #FFD966, #FFB347, #FFD966);
-      background-size: 200% 200%;
-      animation: borderGlow 1.5s ease infinite;
-    }
-    @keyframes borderGlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
     }
     .project-card:hover {
       transform: translateY(-10px) scale(1.02);
       background: rgba(35, 65, 78, 0.75);
-      border-color: transparent;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.5);
+      border-color: #FFD966;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.4);
     }
     .project-img-wrapper {
       position: relative;
       overflow: hidden;
-      height: 240px;
+      height: 220px;
     }
     .project-img {
       width: 100%;
@@ -180,56 +126,29 @@
       left: 0;
       right: 0;
       background: linear-gradient(0deg, rgba(0,0,0,0.8), transparent);
-      padding: 1.5rem 1rem 1rem;
+      padding: 1.2rem;
     }
     .project-badge {
-      display: inline-block;
       background: rgba(255,217,102,0.25);
       backdrop-filter: blur(8px);
       padding: 0.3rem 1rem;
       border-radius: 30px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: #FFD966;
       margin-bottom: 0.5rem;
+      display: inline-block;
     }
-    .project-card h3 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin-bottom: 0.3rem;
-    }
-    .project-card p {
-      font-size: 0.85rem;
-      opacity: 0.85;
-      margin: 0;
-    }
-    .project-info { padding: 1.2rem 1.2rem 1.5rem; }
-    .project-stats {
-      display: flex;
-      gap: 1rem;
-      margin-top: 0.8rem;
-      padding-top: 0.8rem;
-      border-top: 1px solid rgba(255,230,170,0.2);
-    }
-    .stat {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-    }
+    .project-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .project-card p { font-size: 0.8rem; opacity: 0.85; }
+    .project-info { padding: 1rem; }
+    .project-stats { display: flex; gap: 1rem; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,230,170,0.2); flex-wrap: wrap; }
+    .stat { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; }
     .stat i { color: #FFD966; }
 
-    /* Modal */
-    .modal-content {
-      background: rgba(20, 40, 48, 0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid #FFD966;
-      border-radius: 1.5rem;
-      color: white;
-    }
-    .modal-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 1rem; }
+    .projects-tab { display: none; }
+    .projects-tab.active-tab { display: block; }
 
-    /* Admin Button */
     .admin-btn {
       position: fixed;
       bottom: 30px;
@@ -244,7 +163,6 @@
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s;
     }
     .admin-btn:hover { transform: scale(1.1); }
     .admin-btn i { font-size: 1.5rem; color: #1e2f38; }
@@ -257,26 +175,28 @@
       padding: 8px 28px;
       transition: 0.25s;
     }
-    .btn-outline-gold:hover {
-      background: #FFD966;
-      color: #1e2f38;
-    }
+    .btn-outline-gold:hover { background: #FFD966; color: #1e2f38; }
 
-    .projects-tab { display: none; }
-    .projects-tab.active-tab { display: block; }
-    .progress-bar { transition: width 0.6s ease; }
+    .modal-content {
+      background: rgba(20, 40, 48, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid #FFD966;
+      border-radius: 1.5rem;
+      color: white;
+    }
+    .modal-img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 1rem; }
+    .glass-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,230,170,0.2); border-radius: 1rem; padding: 1rem; }
+    .counter-value { font-size: 1.5rem; font-weight: 800; color: #FFD966; }
 
     @media (max-width: 768px) {
       .glass-header h1 { font-size: 2rem; }
-      .glass-tab-btn { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
-      .project-img-wrapper { height: 200px; }
-      .project-card h3 { font-size: 1.2rem; }
+      .glass-tab-btn { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
+      .project-img-wrapper { height: 180px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg fixed-top">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="index.html">
@@ -300,7 +220,6 @@
   </div>
 </nav>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
   <div class="container">
     <div class="glass-header" data-aos="fade-up">
@@ -310,17 +229,15 @@
   </div>
 </div>
 
-<!-- GLASS TABS -->
 <div class="container text-center" data-aos="fade-up" data-aos-delay="200">
   <div class="glass-tabs">
-    <button class="glass-tab-btn active" data-tab="ongoing"><i class="fas fa-spinner fa-pulse"></i> Ongoing Projects</button>
-    <button class="glass-tab-btn" data-tab="completed"><i class="fas fa-check-circle"></i> Completed Projects</button>
-    <button class="glass-tab-btn" data-tab="upcoming"><i class="fas fa-calendar-alt"></i> Upcoming Vision</button>
+    <button class="glass-tab-btn active" data-tab="ongoing"><i class="fas fa-spinner"></i> Ongoing</button>
+    <button class="glass-tab-btn" data-tab="completed"><i class="fas fa-check-circle"></i> Completed</button>
+    <button class="glass-tab-btn" data-tab="upcoming"><i class="fas fa-calendar-alt"></i> Upcoming</button>
   </div>
 </div>
 
-<!-- PROJECTS GRID -->
-<section class="projects-section">
+<section class="projects-section" style="padding: 40px 20px 80px;">
   <div class="container">
     <div id="ongoing-projects" class="projects-tab active-tab"><div class="row g-4" id="ongoingGrid"></div></div>
     <div id="completed-projects" class="projects-tab"><div class="row g-4" id="completedGrid"></div></div>
@@ -328,103 +245,29 @@
   </div>
 </section>
 
-<!-- MODAL -->
-<div class="modal fade" id="projectModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="projectModal" tabindex="-1">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle" style="color:#FFD966;"></h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <img id="modalImage" class="modal-img mb-3" alt="">
-        <p id="modalDescription"></p>
-        <div class="row mt-3" id="modalDetails"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-warning" id="modalSupportBtn"><i class="fas fa-heart me-2"></i>Support This Project</button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title" id="modalTitle" style="color:#FFD966;"></h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><img id="modalImage" class="modal-img mb-3" alt=""><p id="modalDescription"></p><div class="row mt-3" id="modalDetails"></div></div>
+      <div class="modal-footer"><button class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button><button class="btn btn-warning" id="modalSupportBtn">Support</button></div>
     </div>
   </div>
 </div>
 
-<!-- ADMIN BUTTON & MODALS -->
 <div class="admin-btn" id="adminBtn"><i class="fas fa-lock"></i></div>
 
 <div class="modal fade" id="adminLoginModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title" style="color:#FFD966;"><i class="fas fa-shield-alt me-2"></i>Admin Login</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">
-        <input type="text" id="loginUsername" class="form-control mb-3" placeholder="Username" style="background:rgba(255,255,255,0.1);border-color:#FFD966;color:white;">
-        <input type="password" id="loginPassword" class="form-control mb-3" placeholder="Password" style="background:rgba(255,255,255,0.1);border-color:#FFD966;color:white;">
-        <button class="btn btn-outline-gold w-100" id="doLoginBtn">Login</button>
-      </div>
+      <div class="modal-header"><h5 class="modal-title" style="color:#FFD966;">Admin Login</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+      <div class="modal-body"><input type="text" id="loginUsername" class="form-control mb-3" placeholder="Username"><input type="password" id="loginPassword" class="form-control mb-3" placeholder="Password"><button class="btn btn-outline-gold w-100" id="doLoginBtn">Login</button></div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="adminPanelModal" tabindex="-1">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title" style="color:#FFD966;"><i class="fas fa-database me-2"></i>Project Management Dashboard</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">
-        <button class="btn btn-outline-gold mb-3" id="addProjectBtn"><i class="fas fa-plus me-2"></i>Add New Project</button>
-        <div class="table-responsive">
-          <table class="table table-dark table-hover">
-            <thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Actions</th></tr></thead>
-            <tbody id="adminProjectsList"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="projectFormModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title" id="formModalTitle" style="color:#FFD966;"></h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
-      <div class="modal-body">
-        <input type="hidden" id="editId">
-        <input type="text" id="projectTitle" class="form-control mb-2" placeholder="Title" style="background:rgba(255,255,255,0.1);color:white;">
-        <select id="projectCategory" class="form-control mb-2" style="background:rgba(255,255,255,0.1);color:white;">
-          <option value="ongoing">Ongoing</option><option value="completed">Completed</option><option value="upcoming">Upcoming</option>
-        </select>
-        <textarea id="projectDescription" class="form-control mb-2" rows="3" placeholder="Description" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
-        <input type="url" id="projectImage" class="form-control mb-2" placeholder="Image URL" style="background:rgba(255,255,255,0.1);color:white;">
-        <div class="row">
-          <div class="col-md-6"><input type="text" id="projectLocation" class="form-control mb-2" placeholder="Location" style="background:rgba(255,255,255,0.1);color:white;"></div>
-          <div class="col-md-6"><input type="text" id="projectProgress" class="form-control mb-2" placeholder="Progress % (e.g., 65%)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-6"><input type="text" id="projectRaised" class="form-control mb-2" placeholder="Raised (e.g., ₦185M)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-          <div class="col-md-6"><input type="text" id="projectGoal" class="form-control mb-2" placeholder="Goal (e.g., ₦285M)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-6"><input type="text" id="projectStartDate" class="form-control mb-2" placeholder="Start Date" style="background:rgba(255,255,255,0.1);color:white;"></div>
-          <div class="col-md-6"><input type="text" id="projectCompletion" class="form-control mb-2" placeholder="Expected Completion" style="background:rgba(255,255,255,0.1);color:white;"></div>
-        </div>
-        <div class="row">
-          <div class="col-md-6"><input type="text" id="projectImpact" class="form-control mb-2" placeholder="Impact (for completed)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-          <div class="col-md-6"><input type="text" id="projectCost" class="form-control mb-2" placeholder="Cost (for completed)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-        </div>
-        <textarea id="projectTestimonial" class="form-control mb-2" rows="2" placeholder="Testimonial (for completed)" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
-        <div class="row">
-          <div class="col-md-6"><input type="text" id="projectPlannedStart" class="form-control mb-2" placeholder="Planned Start (upcoming)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-          <div class="col-md-6"><input type="text" id="projectEstimatedCost" class="form-control mb-2" placeholder="Estimated Cost (upcoming)" style="background:rgba(255,255,255,0.1);color:white;"></div>
-        </div>
-        <textarea id="projectVision" class="form-control mb-2" rows="2" placeholder="Vision (for upcoming)" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
-        <button class="btn btn-outline-gold w-100" id="saveProjectBtn">Save Project</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
+<footer style="background: rgba(5, 20, 25, 0.8); padding: 2rem; text-align: center; margin-top: 2rem;">
   <p><i class="fas fa-cross me-1"></i> © 2026 Pontifical Mission Society · Spreading the Gospel Worldwide</p>
-  <p>Designed with <i class="fas fa-heart" style="color:#FFD966;"></i> by BerryRay Technologies</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -432,265 +275,152 @@
 <script>
   AOS.init({ once: true, offset: 60, duration: 700 });
 
-  // ============================================
-  // SUPABASE CONFIGURATION
-  // ============================================
   const SUPABASE_URL = 'https://ekhzbclqpelsrfefufpv.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVraHpiY2xxcGVsc3JmZWZ1ZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjQ2MjUsImV4cCI6MjA5MjQ0MDYyNX0.7dJiDcV4q8Ss_4Ua19-L-VFSxThJKNLyBv__bfdx02M';
   
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   
-  let isAdminLoggedIn = false;
   let currentProjects = [];
 
-  // ============================================
-  // LOAD PROJECTS FROM SUPABASE
-  // ============================================
   async function loadProjects() {
-    const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
+    // Show loading
+    document.getElementById('ongoingGrid').innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-warning"></div></div>';
+    document.getElementById('completedGrid').innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-warning"></div></div>';
+    document.getElementById('upcomingGrid').innerHTML = '<div class="col-12 text-center"><div class="spinner-border text-warning"></div></div>';
+    
+    const { data, error } = await supabase.from('projects').select('*');
+    
     if (error) {
-      console.error('Error loading projects:', error);
-      return;
-    }
-    currentProjects = data || [];
-    renderProjectsByCategory();
-  }
-  
-  function renderProjectsByCategory() {
-    const ongoing = currentProjects.filter(p => p.category === 'ongoing');
-    const completed = currentProjects.filter(p => p.category === 'completed');
-    const upcoming = currentProjects.filter(p => p.category === 'upcoming');
-    
-    renderProjectCards('ongoingGrid', ongoing, 'ongoing');
-    renderProjectCards('completedGrid', completed, 'completed');
-    renderProjectCards('upcomingGrid', upcoming, 'upcoming');
-    attachCardClickHandlers();
-  }
-  
-  function renderProjectCards(gridId, projects, type) {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
-    if (projects.length === 0) {
-      grid.innerHTML = '<div class="col-12 text-center"><div class="glass-header">No projects found.</div></div>';
+      console.error('Error:', error);
+      document.getElementById('ongoingGrid').innerHTML = '<div class="col-12 text-center">Error loading projects. Please make sure the "projects" table exists in Supabase.</div>';
       return;
     }
     
-    grid.innerHTML = projects.map(project => createProjectCardHTML(project, type)).join('');
+    if (data && data.length > 0) {
+      currentProjects = data;
+      renderProjects(data);
+    } else {
+      document.getElementById('ongoingGrid').innerHTML = '<div class="col-12 text-center"><div class="glass-header">No projects found. Add some using the admin panel!</div></div>';
+      document.getElementById('completedGrid').innerHTML = '<div class="col-12 text-center"><div class="glass-header">No projects found.</div></div>';
+      document.getElementById('upcomingGrid').innerHTML = '<div class="col-12 text-center"><div class="glass-header">No projects found.</div></div>';
+    }
   }
   
-  function createProjectCardHTML(project, type) {
-    let statusBadge = '';
-    let progressHtml = '';
-    let statHtml = '';
+  function renderProjects(projects) {
+    const ongoing = projects.filter(p => p.category === 'ongoing');
+    const completed = projects.filter(p => p.category === 'completed');
+    const upcoming = projects.filter(p => p.category === 'upcoming');
+    
+    document.getElementById('ongoingGrid').innerHTML = ongoing.map(p => createCard(p, 'ongoing')).join('');
+    document.getElementById('completedGrid').innerHTML = completed.map(p => createCard(p, 'completed')).join('');
+    document.getElementById('upcomingGrid').innerHTML = upcoming.map(p => createCard(p, 'upcoming')).join('');
+    
+    attachCardEvents();
+  }
+  
+  function createCard(p, type) {
+    let badge = '';
+    let stats = '';
     
     if (type === 'ongoing') {
-      statusBadge = `<span class="project-badge"><i class="fas fa-sync-alt fa-fw me-1"></i> ${project.progress || 'In Progress'}</span>`;
-      progressHtml = project.progress ? `<div class="progress mt-2" style="height: 6px; background: rgba(255,255,255,0.2);"><div class="progress-bar bg-warning" style="width: ${project.progress};"></div></div>` : '';
-      statHtml = `<div class="project-stats"><div class="stat"><i class="fas fa-chart-line"></i> <span>Raised: ${project.raised || 'N/A'}</span></div><div class="stat"><i class="fas fa-bullseye"></i> <span>Goal: ${project.goal || 'N/A'}</span></div><div class="stat"><i class="fas fa-map-marker-alt"></i> <span>${project.location || 'N/A'}</span></div></div>`;
+      badge = `<span class="project-badge"><i class="fas fa-sync-alt"></i> ${p.progress || 'In Progress'}</span>`;
+      stats = `<div class="project-stats"><div class="stat"><i class="fas fa-chart-line"></i> Raised: ${p.raised || 'N/A'}</div><div class="stat"><i class="fas fa-bullseye"></i> Goal: ${p.goal || 'N/A'}</div><div class="stat"><i class="fas fa-map-marker-alt"></i> ${p.location || 'N/A'}</div></div>`;
     } else if (type === 'completed') {
-      statusBadge = `<span class="project-badge"><i class="fas fa-check-circle me-1"></i> Completed ${project.completion_date || ''}</span>`;
-      statHtml = `<div class="project-stats"><div class="stat"><i class="fas fa-users"></i> <span>${project.impact || 'N/A'}</span></div><div class="stat"><i class="fas fa-money-bill-wave"></i> <span>${project.cost || 'N/A'}</span></div><div class="stat"><i class="fas fa-map-marker-alt"></i> <span>${project.location || 'N/A'}</span></div></div>`;
+      badge = `<span class="project-badge"><i class="fas fa-check-circle"></i> Completed ${p.completion_date || ''}</span>`;
+      stats = `<div class="project-stats"><div class="stat"><i class="fas fa-users"></i> ${p.impact || 'N/A'}</div><div class="stat"><i class="fas fa-money-bill-wave"></i> ${p.cost || 'N/A'}</div><div class="stat"><i class="fas fa-map-marker-alt"></i> ${p.location || 'N/A'}</div></div>`;
     } else {
-      statusBadge = `<span class="project-badge"><i class="fas fa-calendar-alt me-1"></i> Starts ${project.planned_start || 'TBA'}</span>`;
-      statHtml = `<div class="project-stats"><div class="stat"><i class="fas fa-calendar"></i> <span>${project.planned_start || 'TBA'}</span></div><div class="stat"><i class="fas fa-chart-line"></i> <span>Est. ${project.estimated_cost || 'N/A'}</span></div><div class="stat"><i class="fas fa-map-marker-alt"></i> <span>${project.location || 'N/A'}</span></div></div>`;
+      badge = `<span class="project-badge"><i class="fas fa-calendar-alt"></i> Starts ${p.planned_start || 'TBA'}</span>`;
+      stats = `<div class="project-stats"><div class="stat"><i class="fas fa-calendar"></i> ${p.planned_start || 'TBA'}</div><div class="stat"><i class="fas fa-chart-line"></i> Est. ${p.estimated_cost || 'N/A'}</div><div class="stat"><i class="fas fa-map-marker-alt"></i> ${p.location || 'N/A'}</div></div>`;
     }
     
     return `
       <div class="col-md-6 col-lg-4">
-        <div class="project-card" data-project-id="${project.id}" data-project-type="${type}">
+        <div class="project-card" data-id="${p.id}" data-type="${type}">
           <div class="project-img-wrapper">
-            <img src="${project.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'}" class="project-img" loading="lazy">
-            <div class="project-overlay">${statusBadge}<h3>${escapeHtml(project.title)}</h3><p>${escapeHtml(project.description.substring(0, 80))}${project.description.length > 80 ? '...' : ''}</p></div>
+            <img src="${p.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop'}" class="project-img" loading="lazy">
+            <div class="project-overlay">${badge}<h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.description.substring(0, 100))}${p.description.length > 100 ? '...' : ''}</p></div>
           </div>
-          <div class="project-info">${progressHtml}${statHtml}</div>
+          <div class="project-info">${stats}</div>
         </div>
       </div>
     `;
   }
   
-  function attachCardClickHandlers() {
+  function attachCardEvents() {
     document.querySelectorAll('.project-card').forEach(card => {
       card.addEventListener('click', () => {
-        const id = parseInt(card.getAttribute('data-project-id'));
-        const type = card.getAttribute('data-project-type');
+        const id = parseInt(card.dataset.id);
         const project = currentProjects.find(p => p.id === id);
-        if (project) openProjectModal(project, type);
+        if (project) openModal(project, card.dataset.type);
       });
     });
   }
   
-  function openProjectModal(project, type) {
+  function openModal(project, type) {
     document.getElementById('modalTitle').innerHTML = `<i class="fas fa-project-diagram me-2"></i>${escapeHtml(project.title)}`;
     document.getElementById('modalImage').src = project.image_url || 'https://images.unsplash.com/photo-1438032005730-c779502df39b?w=800&h=500&fit=crop';
     document.getElementById('modalDescription').innerHTML = escapeHtml(project.description);
     
-    let detailsHtml = '';
+    let details = '';
     if (type === 'ongoing') {
-      detailsHtml = `<div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">PROGRESS</small><div class="counter-value">${project.progress || '0%'}</div></div></div>
-                     <div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">RAISED / GOAL</small><div class="counter-value">${project.raised || 'N/A'}</div><small>of ${project.goal || 'N/A'}</small></div></div>
-                     <div class="col-md-6 mt-2"><i class="fas fa-calendar-alt text-warning me-2"></i> Started: ${project.start_date || 'N/A'}</div>
-                     <div class="col-md-6 mt-2"><i class="fas fa-flag-checkered text-warning me-2"></i> Expected: ${project.completion_date || 'N/A'}</div>`;
+      details = `<div class="col-md-6"><div class="glass-card"><small class="text-warning">PROGRESS</small><div class="counter-value">${project.progress || '0%'}</div></div></div>
+                 <div class="col-md-6"><div class="glass-card"><small class="text-warning">RAISED / GOAL</small><div class="counter-value">${project.raised || 'N/A'}</div><small>of ${project.goal || 'N/A'}</small></div></div>
+                 <div class="col-12 mt-2"><i class="fas fa-calendar-alt text-warning me-2"></i> Started: ${project.start_date || 'N/A'}</div>
+                 <div class="col-12"><i class="fas fa-flag-checkered text-warning me-2"></i> Expected: ${project.completion_date || 'N/A'}</div>`;
     } else if (type === 'completed') {
-      detailsHtml = `<div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">IMPACT</small><div class="counter-value">${project.impact || 'N/A'}</div></div></div>
-                     <div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">TOTAL COST</small><div class="counter-value">${project.cost || 'N/A'}</div></div></div>
-                     <div class="col-12 mt-2"><i class="fas fa-check-circle text-warning me-2"></i> Completed: ${project.completion_date || 'N/A'}</div>
-                     ${project.testimonial ? `<div class="mt-2 p-3 bg-warning bg-opacity-10 rounded"><i class="fas fa-quote-left text-warning me-2"></i> ${escapeHtml(project.testimonial)}</div>` : ''}`;
+      details = `<div class="col-md-6"><div class="glass-card"><small class="text-warning">IMPACT</small><div class="counter-value">${project.impact || 'N/A'}</div></div></div>
+                 <div class="col-md-6"><div class="glass-card"><small class="text-warning">COST</small><div class="counter-value">${project.cost || 'N/A'}</div></div></div>
+                 <div class="col-12 mt-2"><i class="fas fa-check-circle text-warning me-2"></i> Completed: ${project.completion_date || 'N/A'}</div>`;
     } else {
-      detailsHtml = `<div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">PLANNED START</small><div class="counter-value">${project.planned_start || 'TBA'}</div></div></div>
-                     <div class="col-md-6"><div class="glass-card p-3 rounded"><small class="text-warning">ESTIMATED COST</small><div class="counter-value">${project.estimated_cost || 'N/A'}</div></div></div>
-                     <div class="col-12 mt-2"><i class="fas fa-eye text-warning me-2"></i> Vision: ${escapeHtml(project.vision || 'N/A')}</div>`;
+      details = `<div class="col-md-6"><div class="glass-card"><small class="text-warning">PLANNED START</small><div class="counter-value">${project.planned_start || 'TBA'}</div></div></div>
+                 <div class="col-md-6"><div class="glass-card"><small class="text-warning">ESTIMATED COST</small><div class="counter-value">${project.estimated_cost || 'N/A'}</div></div></div>
+                 <div class="col-12 mt-2"><i class="fas fa-eye text-warning me-2"></i> Vision: ${escapeHtml(project.vision || 'N/A')}</div>`;
     }
-    document.getElementById('modalDetails').innerHTML = detailsHtml;
+    document.getElementById('modalDetails').innerHTML = details;
     new bootstrap.Modal(document.getElementById('projectModal')).show();
   }
   
   function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
   
-  // ============================================
-  // ADMIN FUNCTIONS
-  // ============================================
-  async function loadAdminProjects() {
-    const { data } = await supabase.from('projects').select('*').order('created_at', { ascending: false });
-    if (data) {
-      const tbody = document.getElementById('adminProjectsList');
-      tbody.innerHTML = data.map(p => `
-        <tr><td>${p.id}</td><td>${escapeHtml(p.title)}</td><td>${p.category}</td>
-        <td><button class="btn btn-sm btn-outline-warning me-1 edit-project" data-id="${p.id}"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger delete-project" data-id="${p.id}"><i class="fas fa-trash"></i></button></td></tr>
-      `).join('');
-      
-      document.querySelectorAll('.edit-project').forEach(btn => btn.addEventListener('click', () => editProject(parseInt(btn.dataset.id))));
-      document.querySelectorAll('.delete-project').forEach(btn => btn.addEventListener('click', () => deleteProject(parseInt(btn.dataset.id))));
-    }
-  }
-  
-  async function editProject(id) {
-    const project = currentProjects.find(p => p.id === id);
-    if (project) {
-      document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-edit me-2"></i>Edit Project';
-      document.getElementById('editId').value = project.id;
-      document.getElementById('projectTitle').value = project.title || '';
-      document.getElementById('projectCategory').value = project.category || 'ongoing';
-      document.getElementById('projectDescription').value = project.description || '';
-      document.getElementById('projectImage').value = project.image_url || '';
-      document.getElementById('projectLocation').value = project.location || '';
-      document.getElementById('projectProgress').value = project.progress || '';
-      document.getElementById('projectRaised').value = project.raised || '';
-      document.getElementById('projectGoal').value = project.goal || '';
-      document.getElementById('projectStartDate').value = project.start_date || '';
-      document.getElementById('projectCompletion').value = project.completion_date || '';
-      document.getElementById('projectImpact').value = project.impact || '';
-      document.getElementById('projectCost').value = project.cost || '';
-      document.getElementById('projectTestimonial').value = project.testimonial || '';
-      document.getElementById('projectPlannedStart').value = project.planned_start || '';
-      document.getElementById('projectEstimatedCost').value = project.estimated_cost || '';
-      document.getElementById('projectVision').value = project.vision || '';
-      new bootstrap.Modal(document.getElementById('projectFormModal')).show();
-    }
-  }
-  
-  async function deleteProject(id) {
-    const result = await Swal.fire({ title: 'Are you sure?', text: 'This action cannot be undone!', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'Yes, delete it!' });
-    if (result.isConfirmed) {
-      const { error } = await supabase.from('projects').delete().eq('id', id);
-      if (error) Swal.fire('Error!', 'Failed to delete project.', 'error');
-      else { Swal.fire('Deleted!', 'Project has been deleted.', 'success'); loadProjects(); if (isAdminLoggedIn) loadAdminProjects(); }
-    }
-  }
-  
-  async function saveProject() {
-    const id = document.getElementById('editId').value;
-    const projectData = {
-      title: document.getElementById('projectTitle').value,
-      category: document.getElementById('projectCategory').value,
-      description: document.getElementById('projectDescription').value,
-      image_url: document.getElementById('projectImage').value,
-      location: document.getElementById('projectLocation').value,
-      progress: document.getElementById('projectProgress').value,
-      raised: document.getElementById('projectRaised').value,
-      goal: document.getElementById('projectGoal').value,
-      start_date: document.getElementById('projectStartDate').value,
-      completion_date: document.getElementById('projectCompletion').value,
-      impact: document.getElementById('projectImpact').value,
-      cost: document.getElementById('projectCost').value,
-      testimonial: document.getElementById('projectTestimonial').value,
-      planned_start: document.getElementById('projectPlannedStart').value,
-      estimated_cost: document.getElementById('projectEstimatedCost').value,
-      vision: document.getElementById('projectVision').value
-    };
-    
-    if (!projectData.title || !projectData.category || !projectData.description) {
-      Swal.fire('Error!', 'Please fill all required fields.', 'error');
-      return;
-    }
-    
-    let error;
-    if (id) {
-      const result = await supabase.from('projects').update(projectData).eq('id', id);
-      error = result.error;
-    } else {
-      const result = await supabase.from('projects').insert([projectData]);
-      error = result.error;
-    }
-    
-    if (error) Swal.fire('Error!', 'Failed to save project.', 'error');
-    else { Swal.fire('Success!', 'Project saved successfully.', 'success'); bootstrap.Modal.getInstance(document.getElementById('projectFormModal')).hide(); loadProjects(); if (isAdminLoggedIn) loadAdminProjects(); document.getElementById('editId').value = ''; }
-  }
-  
-  // ============================================
-  // EVENT LISTENERS
-  // ============================================
+  // Tab switching
   document.querySelectorAll('.glass-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.glass-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const tabName = btn.getAttribute('data-tab');
-      document.querySelectorAll('.projects-tab').forEach(tab => tab.classList.remove('active-tab'));
-      document.getElementById(`${tabName}-projects`).classList.add('active-tab');
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.projects-tab').forEach(t => t.classList.remove('active-tab'));
+      document.getElementById(`${tab}-projects`).classList.add('active-tab');
     });
   });
   
+  document.getElementById('modalSupportBtn')?.addEventListener('click', () => alert('Thank you for your support! 🙏'));
+  
+  // Simple demo admin login (no database needed)
+  let isAdmin = false;
   document.getElementById('adminBtn')?.addEventListener('click', () => {
-    if (isAdminLoggedIn) { loadAdminProjects(); new bootstrap.Modal(document.getElementById('adminPanelModal')).show(); }
-    else { new bootstrap.Modal(document.getElementById('adminLoginModal')).show(); }
+    if (isAdmin) {
+      alert('Admin mode active. Add projects by editing the Supabase table directly.');
+    } else {
+      Swal.fire({
+        title: 'Admin Login',
+        html: '<input id="adminUser" class="swal2-input" placeholder="Username"><input id="adminPass" class="swal2-input" type="password" placeholder="Password">',
+        preConfirm: () => {
+          const user = document.getElementById('adminUser').value;
+          const pass = document.getElementById('adminPass').value;
+          if (user === 'admin' && pass === 'admin123') {
+            isAdmin = true;
+            Swal.fire('Success!', 'You are now in admin mode.', 'success');
+            document.getElementById('adminBtn').innerHTML = '<i class="fas fa-cog"></i>';
+          } else {
+            Swal.fire('Error!', 'Invalid credentials', 'error');
+          }
+        }
+      });
+    }
   });
   
-  document.getElementById('doLoginBtn')?.addEventListener('click', () => {
-    const username = document.getElementById('loginUsername').value;
-    const password = document.getElementById('loginPassword').value;
-    if (username === 'admin' && password === 'admin123') {
-      isAdminLoggedIn = true;
-      document.getElementById('adminBtn').innerHTML = '<i class="fas fa-cog"></i>';
-      bootstrap.Modal.getInstance(document.getElementById('adminLoginModal')).hide();
-      Swal.fire('Success!', 'Logged in as admin.', 'success');
-      loadAdminProjects();
-      new bootstrap.Modal(document.getElementById('adminPanelModal')).show();
-    } else { Swal.fire('Error!', 'Invalid credentials.', 'error'); }
-  });
-  
-  document.getElementById('addProjectBtn')?.addEventListener('click', () => {
-    document.getElementById('formModalTitle').innerHTML = '<i class="fas fa-plus me-2"></i>Add New Project';
-    document.getElementById('editId').value = '';
-    ['projectTitle','projectCategory','projectDescription','projectImage','projectLocation','projectProgress','projectRaised','projectGoal','projectStartDate','projectCompletion','projectImpact','projectCost','projectTestimonial','projectPlannedStart','projectEstimatedCost','projectVision'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('projectCategory').value = 'ongoing';
-    new bootstrap.Modal(document.getElementById('projectFormModal')).show();
-  });
-  
-  document.getElementById('saveProjectBtn')?.addEventListener('click', saveProject);
-  document.getElementById('modalSupportBtn')?.addEventListener('click', () => alert('Thank you for your support! Our team will contact you shortly. 🙏'));
-  
-  // ============================================
-  // INITIAL LOAD
-  // ============================================
   loadProjects();
-  
-  console.log('%c✨ Projects Management System with Supabase Loaded ✨', 'color: #FFD966; font-size: 16px');
-  console.log('%c📸 Admin Login: username: admin | password: admin123', 'color: #FFB347; font-size: 12px');
+  console.log('%c✨ Projects Page Loaded ✨', 'color: #FFD966; font-size: 16px');
 </script>
-
-<style>
-  .glass-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(8px); border: 1px solid rgba(255,230,170,0.2); border-radius: 1rem; padding: 1rem; }
-  .counter-value { font-size: 1.8rem; font-weight: 800; color: #FFD966; }
-</style>
 </body>
 </html>
