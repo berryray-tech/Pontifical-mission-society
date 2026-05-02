@@ -210,7 +210,84 @@
       color: #1e2f38;
     }
     
-    /* Portrait Slideshow Styling */
+    /* Founder Gallery - Landscape Form with Glass Morphism */
+    .founder-gallery {
+      margin-top: 2rem;
+    }
+    .gallery-swiper {
+      width: 100%;
+      padding: 20px 0 50px;
+    }
+    .gallery-swiper .swiper-slide {
+      background: rgba(25, 45, 55, 0.4);
+      backdrop-filter: blur(12px);
+      border-radius: 1.2rem;
+      border: 1px solid rgba(255,230,170,0.25);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+    }
+    .gallery-swiper .swiper-slide:hover {
+      transform: translateY(-8px);
+      border-color: #FFD966;
+      background: rgba(35, 65, 78, 0.8);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.4);
+    }
+    .founder-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-swiper .swiper-slide:hover .founder-image {
+      transform: scale(1.05);
+    }
+    .founder-info {
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .founder-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFE2A4;
+      margin-bottom: 0.3rem;
+    }
+    .founder-position {
+      font-size: 0.8rem;
+      color: #FFD966;
+      margin-bottom: 0.3rem;
+    }
+    .founder-parish {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+    .founder-parish i {
+      font-size: 0.6rem;
+      color: #FFD966;
+    }
+    
+    .swiper-button-next, .swiper-button-prev {
+      color: #FFD966;
+      background: rgba(0,0,0,0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 1.2rem;
+    }
+    .swiper-pagination-bullet {
+      background: rgba(255,255,255,0.5);
+    }
+    .swiper-pagination-bullet-active {
+      background: #FFD966;
+    }
+    
+    /* Portrait Slideshow Styling for YOMM Executives */
     .portrait-swiper {
       width: 100%;
       padding: 20px 0 50px;
@@ -248,16 +325,12 @@
       font-weight: 700;
       color: #FFE2A4;
       margin-bottom: 0.2rem;
-      transition: all 0.3s;
     }
     .portrait-position {
       font-size: 0.7rem;
       color: #FFD966;
       font-weight: 500;
-      opacity: 0.9;
-      transition: all 0.3s;
     }
-    /* Hover overlay for additional info */
     .portrait-overlay-hover {
       position: absolute;
       bottom: 0;
@@ -282,23 +355,6 @@
       opacity: 1;
     }
     
-    .swiper-button-next, .swiper-button-prev {
-      color: #FFD966;
-      background: rgba(0,0,0,0.5);
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-    }
-    .swiper-button-next:after, .swiper-button-prev:after {
-      font-size: 1rem;
-    }
-    .swiper-pagination-bullet {
-      background: rgba(255,255,255,0.5);
-    }
-    .swiper-pagination-bullet-active {
-      background: #FFD966;
-    }
-    
     /* YOMM Section inside SPF */
     .yomm-inner-section {
       margin-top: 3rem;
@@ -318,15 +374,12 @@
       color: #FFE2A4;
       margin: 1.5rem 0 1rem;
     }
-    .yomm-view-more {
-      text-align: center;
-      margin-top: 2rem;
-    }
     
     @media (max-width: 768px) {
       .glass-title h1 { font-size: 2.2rem; }
       .section-glass { padding: 50px 15px; }
       .arm-icon-large { width: 70px; height: 70px; font-size: 2rem; }
+      .founder-image { height: 180px; }
       .portrait-name { font-size: 0.7rem; }
       .portrait-position { font-size: 0.6rem; }
     }
@@ -430,7 +483,7 @@
 </footer>
 
 <!-- ============================================ -->
-<!-- MODAL FOR ARM DETAILS WITH DEDICATED SLIDESHOWS -->
+<!-- MODAL FOR ARM DETAILS WITH FOUNDER GALLERY -->
 <!-- ============================================ -->
 <div class="modal fade" id="armDetailModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -469,6 +522,17 @@
           </div>
         </div>
         
+        <!-- Founder Gallery - Landscape Images -->
+        <div class="founder-gallery">
+          <h4 class="mb-3" style="color:#FFD966;"><i class="fas fa-users me-2"></i>Founders & Key Leaders</h4>
+          <div class="swiper gallery-swiper" id="founderSwiper">
+            <div class="swiper-wrapper" id="founderGalleryContainer"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+        
         <!-- YOMM Section (only visible for SPF arm) -->
         <div id="yommSection" style="display: none;">
           <div class="yomm-inner-section">
@@ -477,7 +541,7 @@
             <!-- YOMM History -->
             <div class="glass-card-deep mb-4">
               <div class="card-inner">
-                <h4 style="color:#FFD966;"><i class="fas fa-book-open me-2"></i>YOMM History</h4>
+                <h4 style="color:#FFD966"><i class="fas fa-book-open me-2"></i>YOMM History</h4>
                 <p class="lead" id="yommHistory" style="white-space: pre-wrap; line-height: 1.8;"></p>
               </div>
             </div>
@@ -499,29 +563,11 @@
               <div class="swiper-button-prev"></div>
               <div class="swiper-pagination"></div>
             </div>
-            
-            <!-- View More Button for YOMM Events & Gallery (separate page) -->
-            <div class="yomm-view-more">
-              <a href="yomm-events.html" class="btn btn-outline-gold btn-lg">
-                <i class="fas fa-calendar-alt me-2"></i>View YOMM Events & Gallery
-              </a>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Main Slideshow for the Arm -->
-        <div id="mainSlideshowSection">
-          <h4 class="mb-3" style="color:#FFD966;"><i class="fas fa-images me-2"></i>Gallery - Leaders & Events</h4>
-          <div class="swiper arm-swiper">
-            <div class="swiper-wrapper" id="slideshowContainer"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
           </div>
         </div>
         
         <div class="text-center mt-3">
-          <small class="text-muted" style="opacity:0.6;"><i class="fas fa-info-circle me-1"></i> To add your images, edit the slideshowData in the JavaScript section</small>
+          <small class="text-muted" style="opacity:0.6;"><i class="fas fa-info-circle me-1"></i> Hover over images to see more details</small>
         </div>
       </div>
       <div class="modal-footer">
@@ -538,38 +584,35 @@
   AOS.init({ once: true, offset: 60, duration: 700 });
 
   // ============================================
-  // SLIDESHOW DATA FOR EACH ARM
+  // FOUNDER GALLERY DATA FOR EACH ARM
+  // Each slide contains: imageUrl, name, position, parish
   // ============================================
   
-  const slideshowData = {
+  const founderGalleryData = {
     pmu: [
-      { imageUrl: null, title: "Blessed Paolo Manna", position: "Founder of PMU", description: "Blessed Paolo Manna, PIME missionary, founded the Pontifical Mission Union in 1916" },
-      { imageUrl: null, title: "PMU International Congress", position: "Annual Gathering", description: "Missionary animators from around the world gathering for formation" },
-      { imageUrl: null, title: "Clergy Formation Session", position: "Priestly Animation", description: "Formation program for priests on missionary spirituality" },
-      { imageUrl: null, title: "Missionary Animation Workshop", position: "Training Event", description: "Equipping clergy for missionary animation in parishes" }
+      { imageUrl: null, name: "Blessed Paolo Manna", position: "Founder of PMU", parish: "PIME Missionary, Italy", description: "Founded the Pontifical Mission Union in 1916" },
+      { imageUrl: null, name: "Pope Pius XII", position: "Patron", parish: "Vatican City", description: "Conferred 'Pontifical' title on PMU in 1956" },
+      { imageUrl: null, name: "Cardinal Angelo Rossi", position: "Prefect", parish: "Congregation for Evangelization", description: "Created CIAM in 1974" }
     ],
     hca: [
-      { imageUrl: null, title: "Bishop Charles de Forbin-Janson", position: "Founder of HCA (1843)", description: "Founded the Holy Childhood Association in France" },
-      { imageUrl: null, title: "Sr. Mary Bellamine Nwabunwanne", position: "First HCA Coordinator Abuja", description: "Introduced HCA to Abuja Archdiocese in 2000" },
-      { imageUrl: null, title: "HCA Annual Convention", position: "Children's Missionary Rally", description: "Over 1,000 child missionaries gathered for prayer and celebration" },
-      { imageUrl: null, title: "Children's Missionary Formation", position: "Faith Education", description: "Teaching children about missionary vocation" }
+      { imageUrl: null, name: "Bishop Charles de Forbin-Janson", position: "Founder", parish: "France (1843)", description: "Founded the Holy Childhood Association" },
+      { imageUrl: null, name: "Sr. Mary Bellamine Nwabunwanne", position: "First HCA Coordinator Abuja", parish: "Sisters of IHM", description: "Introduced HCA to Abuja Archdiocese in 2000" },
+      { imageUrl: null, name: "Rev. Fr. Gokun Michael Gobal", position: "First PMS Chairman", parish: "Abuja Archdiocese", description: "First Chairman of Archdiocesan Catechetical Commission" }
     ],
     spf: [
-      { imageUrl: null, title: "Pauline Jaricot", position: "Founder of SPF (1822)", description: "Founded the Society for the Propagation of the Faith in Lyon, France" },
-      { imageUrl: null, title: "World Mission Sunday", position: "Annual Celebration", description: "Global day of prayer and support for missions" },
-      { imageUrl: null, title: "Missionary Fund Distribution", position: "Supporting Young Churches", description: "Distributing funds to mission territories worldwide" },
-      { imageUrl: null, title: "Mission Animation Conference", position: "Formation Event", description: "Training diocesan directors on missionary promotion" }
+      { imageUrl: null, name: "Pauline Jaricot", position: "Founder", parish: "Lyon, France (1822)", description: "Founded the Society for the Propagation of the Faith" },
+      { imageUrl: null, name: "Pope Pius XI", position: "Patron", parish: "Vatican City", description: "Declared SPF 'Pontifical' in 1922" },
+      { imageUrl: null, name: "Bl. Antoine Chevrier", position: "Collaborator", parish: "Lyon, France", description: "Supported Pauline Jaricot's missionary vision" }
     ],
     pospa: [
-      { imageUrl: null, title: "Jeanne Bigard", position: "Founder of POSPA (1889)", description: "Founded the Work of Saint Peter the Apostle with her mother Stephanie" },
-      { imageUrl: null, title: "Seminary Support Program", position: "Forming Future Priests", description: "Supporting seminarians in mission territories" },
-      { imageUrl: null, title: "Religious Formation", position: "Novitiate Support", description: "Assisting religious communities in young churches" },
-      { imageUrl: null, title: "Vocation Promotion", position: "Encouraging Vocations", description: "Programs to inspire young people to religious life" }
+      { imageUrl: null, name: "Jeanne Bigard", position: "Co-Founder", parish: "France (1889)", description: "Founded POSPA with her mother Stephanie" },
+      { imageUrl: null, name: "Stephanie Bigard", position: "Co-Founder", parish: "France", description: "Mother of Jeanne, co-founded POSPA" },
+      { imageUrl: null, name: "Pope Leo XIII", position: "Patron", parish: "Vatican City", description: "Approved and blessed POSPA" }
     ]
   };
 
   // ============================================
-  // YOMM PORTRAIT DATA - Archdiocese Executives
+  // YOMM PORTRAIT DATA
   // ============================================
   
   const yommExecutives = [
@@ -585,11 +628,10 @@
     { imageUrl: null, name: "Mr. Richard Apeh", position: "First YOMM Coordinator", description: "First National Coordinator of YOMM" }
   ];
 
-  // YOMM Royalties Portrait Data
   const yommRoyalties = [
     { imageUrl: "Images/21.jpeg", name: "Miss Anene Chidalu Queensly", position: "Miss YOMM provincial", description: "Supporting YOMM missionary activities" },
     { imageUrl: "Images/20.jpeg", name: "Idengeri Christiana Ehi", position: "Miss YOMM of the archdiocese of Abuja", description: "Benefactor of youth missionary work" },
-    { imageUrl: "Images/9.jpeg", name: "Aleonoye Japheth Agbodesi", position: "Master YOMM Abuja Province from Abuja Archdiocese", description: "Supporting young missionaries" },
+    { imageUrl: "Images/9.jpeg", name: "Aleonoye Japheth Agbodesi", position: "Master YOMM Abuja Province", description: "Supporting young missionaries" },
     { imageUrl: "Images/14.jpeg", name: "Johnpaul Alex odigbo", position: "Mister yomm Abuja Archdiocese", description: "Promoting youth evangelization" },
     { imageUrl: "Images/19.jpeg", name: "Sanctus Kalu", position: "Dame of St. Sylvester", description: "Patroness of YOMM" },
     { imageUrl: null, name: "Chief Dr. Michael Okafor", position: "Knight of Columbus", description: "Supporting missionary formation" },
@@ -614,7 +656,7 @@
       yearEst: 1916,
       countries: "120+",
       members: "10,000+",
-      slideshowKey: "pmu",
+      founderKey: "pmu",
       hasYomm: false
     },
     {
@@ -628,7 +670,7 @@
       yearEst: 1843,
       countries: "100+",
       members: "500,000+",
-      slideshowKey: "hca",
+      founderKey: "hca",
       hasYomm: false
     },
     {
@@ -642,7 +684,7 @@
       yearEst: 1822,
       countries: "1,100+",
       members: "Millions",
-      slideshowKey: "spf",
+      founderKey: "spf",
       hasYomm: true
     },
     {
@@ -656,7 +698,7 @@
       yearEst: 1889,
       countries: "1,000+",
       members: "Millions",
-      slideshowKey: "pospa",
+      founderKey: "pospa",
       hasYomm: false
     }
   ];
@@ -698,7 +740,7 @@
   }
   
   // Store swiper instances
-  let mainSwiper = null;
+  let founderSwiper = null;
   let yommSwiperExecutives = null;
   let yommSwiperRoyalties = null;
   
@@ -718,39 +760,38 @@
     `;
     
     const yommSection = document.getElementById('yommSection');
-    const mainSlideshowSection = document.getElementById('mainSlideshowSection');
     
     if (arm.hasYomm) {
       yommSection.style.display = 'block';
-      mainSlideshowSection.style.display = 'block';
-      
       document.getElementById('yommHistory').innerHTML = `YOMM was established in 2006 under the Pontifical Mission Societies Nigeria, founded by Msgr. Hypolite Adigwe. Created to sustain the missionary zeal of young Catholics who graduated from the Holy Childhood Association, YOMM has grown into a nationwide movement with thousands of young members. It organizes retreats, formation programs, evangelization campaigns, and charitable works across Nigeria. The movement has been instrumental in nurturing vocations and raising young missionary disciples.`;
       
       renderPortraitSlideshow('yommExecutivesContainer', yommExecutives);
       renderPortraitSlideshow('yommRoyaltiesContainer', yommRoyalties);
     } else {
       yommSection.style.display = 'none';
-      mainSlideshowSection.style.display = 'block';
     }
     
-    // Render main slideshow for the arm
-    const slides = slideshowData[arm.slideshowKey] || slideshowData.pmu;
-    const slideshowContainer = document.getElementById('slideshowContainer');
-    slideshowContainer.innerHTML = '';
+    // Render Founder Gallery
+    const founders = founderGalleryData[arm.founderKey] || founderGalleryData.pmu;
+    const founderContainer = document.getElementById('founderGalleryContainer');
+    founderContainer.innerHTML = '';
     
-    slides.forEach(slide => {
+    founders.forEach(founder => {
       const slideDiv = document.createElement('div');
       slideDiv.className = 'swiper-slide';
-      const imageHtml = slide.imageUrl 
-        ? `<img src="${slide.imageUrl}" alt="${escapeHtml(slide.title)}" class="slide-image">`
-        : `<div class="slide-placeholder"><i class="fas fa-image"></i><br><small class="mt-2">Add Image</small></div>`;
+      const imageHtml = founder.imageUrl 
+        ? `<img src="${founder.imageUrl}" alt="${escapeHtml(founder.name)}" class="founder-image">`
+        : `<div class="founder-image" style="background: linear-gradient(135deg, #2c5364, #203a43); display: flex; align-items: center; justify-content: center;"><i class="fas fa-user-circle" style="font-size: 4rem; color: #FFD966;"></i></div>`;
+      
       slideDiv.innerHTML = `
         ${imageHtml}
-        <div class="slide-title">${escapeHtml(slide.title)}</div>
-        <div class="slide-position">${escapeHtml(slide.position)}</div>
-        <div class="slide-desc">${escapeHtml(slide.description)}</div>
+        <div class="founder-info">
+          <div class="founder-name">${escapeHtml(founder.name)}</div>
+          <div class="founder-position">${escapeHtml(founder.position)}</div>
+          <div class="founder-parish"><i class="fas fa-church"></i> ${escapeHtml(founder.parish)}</div>
+        </div>
       `;
-      slideshowContainer.appendChild(slideDiv);
+      founderContainer.appendChild(slideDiv);
     });
     
     const modalElement = document.getElementById('armDetailModal');
@@ -758,15 +799,15 @@
     modal.show();
     
     setTimeout(() => {
-      if (mainSwiper) mainSwiper.destroy(true, true);
+      if (founderSwiper) founderSwiper.destroy(true, true);
       
-      mainSwiper = new Swiper('.arm-swiper', {
+      founderSwiper = new Swiper('.gallery-swiper', {
         slidesPerView: 1,
         spaceBetween: 20,
-        loop: slides.length > 1,
+        loop: founders.length > 1,
         autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
-        navigation: { nextEl: '.arm-swiper .swiper-button-next', prevEl: '.arm-swiper .swiper-button-prev' },
-        pagination: { el: '.arm-swiper .swiper-pagination', clickable: true },
+        navigation: { nextEl: '.gallery-swiper .swiper-button-next', prevEl: '.gallery-swiper .swiper-button-prev' },
+        pagination: { el: '.gallery-swiper .swiper-pagination', clickable: true },
         breakpoints: { 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
       });
       
@@ -827,8 +868,8 @@
   }
   
   renderArmCards();
-  console.log('%c✨ Missionary Arms Loaded | Portrait Slideshow with Hover Effects ✨', 'color: #FFD966; font-size: 16px');
-  console.log('%c📸 YOMM Events & Gallery moved to separate page (yomm-events.html)', 'color: #FFB347; font-size: 12px');
+  console.log('%c✨ Missionary Arms Loaded | Founder Gallery with Landscape Images & Hover Effects ✨', 'color: #FFD966; font-size: 16px');
+  console.log('%c📸 To add founder images, edit the founderGalleryData array with imageUrl, name, position, and parish', 'color: #FFB347; font-size: 12px');
 </script>
 
 </body>
