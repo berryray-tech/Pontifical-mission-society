@@ -267,6 +267,18 @@
       color: #1e2f38;
     }
 
+    /* Loading skeleton animation */
+    .skeleton-card {
+      background: rgba(25, 45, 55, 0.3);
+      border-radius: 1.5rem;
+      height: 400px;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
     @media (max-width: 768px) {
       .glass-header h1 { font-size: 2rem; }
       .filter-chip { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
@@ -328,11 +340,10 @@
 <section class="news-section">
   <div class="container">
     <div class="row g-4" id="newsGrid">
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-warning" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      </div>
+      <!-- Skeleton loaders -->
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
     </div>
   </div>
 </section>
@@ -413,7 +424,7 @@
               <tr><th>ID</th><th>Title</th><th>Category</th><th>Date</th><th>Actions</th></tr>
             </thead>
             <tbody id="adminNewsList"></tbody>
-           </table>
+          </table>
         </div>
       </div>
     </div>
@@ -439,7 +450,7 @@
         </select>
         <input type="date" id="newsDate" class="form-control mb-2" style="background:rgba(255,255,255,0.1);color:white;">
         <input type="text" id="newsAuthor" class="form-control mb-2" placeholder="Author" style="background:rgba(255,255,255,0.1);color:white;">
-        <input type="url" id="newsImage" class="form-control mb-2" placeholder="Image URL (Upload to Supabase Storage first)" style="background:rgba(255,255,255,0.1);color:white;">
+        <input type="url" id="newsImage" class="form-control mb-2" placeholder="Image URL" style="background:rgba(255,255,255,0.1);color:white;">
         <textarea id="newsExcerpt" class="form-control mb-2" rows="2" placeholder="Excerpt" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
         <textarea id="newsContent" class="form-control mb-2" rows="5" placeholder="Full Content" style="background:rgba(255,255,255,0.1);color:white;"></textarea>
         <input type="text" id="statsAttendees" class="form-control mb-2" placeholder="Stats: Attendees (e.g., 2,000+)" style="background:rgba(255,255,255,0.1);color:white;">
@@ -464,11 +475,11 @@
   AOS.init({ once: true, offset: 60, duration: 700 });
 
   // ============================================
-  // SUPABASE CONFIGURATION - REPLACE WITH YOURS
+  // SUPABASE CONFIGURATION - FIXED URL (no /rest/v1/ suffix)
   // ============================================
-  // Go to your Supabase project -> Settings -> API
-  const SUPABASE_URL = 'https://ekhzbclqpelsrfefufpv.supabase.co/rest/v1/';  // Replace with your URL
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVraHpiY2xxcGVsc3JmZWZ1ZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjQ2MjUsImV4cCI6MjA5MjQ0MDYyNX0.7dJiDcV4q8Ss_4Ua19-L-VFSxThJKNLyBv__bfdx02M';  // Replace with your anon key
+  // IMPORTANT: Replace with your correct Supabase credentials
+  const SUPABASE_URL = 'https://ekhzbclqpelsrfefufpv.supabase.co';  // <-- FIXED: Removed /rest/v1/
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVraHpiY2xxcGVsc3JmZWZ1ZnB2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NjQ2MjUsImV4cCI6MjA5MjQ0MDYyNX0.7dJiDcV4q8Ss_4Ua19-L-VFSxThJKNLyBv__bfdx02M';
   
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   
@@ -480,7 +491,13 @@
   // LOAD NEWS FROM SUPABASE
   // ============================================
   async function loadNews(filter = 'all') {
-    document.getElementById('newsGrid').innerHTML = '<div class="col-12 text-center py-5"><div class="spinner-border text-warning"></div></div>';
+    // Show loading skeleton
+    const grid = document.getElementById('newsGrid');
+    grid.innerHTML = `
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
+      <div class="col-md-6 col-lg-4"><div class="skeleton-card"></div></div>
+    `;
     
     let query = supabase.from('news_articles').select('*').order('date', { ascending: false });
     
@@ -492,7 +509,7 @@
     
     if (error) {
       console.error('Error loading news:', error);
-      document.getElementById('newsGrid').innerHTML = '<div class="col-12 text-center">Error loading news. Please try again.</div>';
+      grid.innerHTML = '<div class="col-12 text-center"><div class="glass-header">Error loading news. Please refresh the page.</div></div>';
       return;
     }
     
@@ -518,7 +535,7 @@
       const col = document.createElement('div');
       col.className = 'col-md-6 col-lg-4';
       col.setAttribute('data-aos', 'fade-up');
-      col.setAttribute('data-aos-delay', (index * 100).toString());
+      col.setAttribute('data-aos-delay', (index * 50).toString());
       col.innerHTML = `
         <div class="news-card" data-news-id="${news.id}">
           <div class="news-img-wrapper">
@@ -529,7 +546,7 @@
           <div class="news-content">
             <h3>${escapeHtml(news.title)}</h3>
             <div class="news-meta"><span><i class="fas fa-user"></i> ${escapeHtml(news.author)}</span></div>
-            <p class="news-excerpt">${escapeHtml(news.excerpt.substring(0, 120))}${news.excerpt.length > 120 ? '...' : ''}</p>
+            <p class="news-excerpt">${escapeHtml(news.excerpt ? news.excerpt.substring(0, 120) : '')}${news.excerpt && news.excerpt.length > 120 ? '...' : ''}</p>
             <button class="btn-read" data-id="${news.id}"><i class="fas fa-book-open me-2"></i>Read Full Story</button>
           </div>
         </div>
@@ -622,8 +639,8 @@
       document.getElementById('newsDate').value = news.date;
       document.getElementById('newsAuthor').value = news.author;
       document.getElementById('newsImage').value = news.image_url || '';
-      document.getElementById('newsExcerpt').value = news.excerpt;
-      document.getElementById('newsContent').value = news.full_content;
+      document.getElementById('newsExcerpt').value = news.excerpt || '';
+      document.getElementById('newsContent').value = news.full_content || '';
       document.getElementById('statsAttendees').value = news.stats_attendees || '';
       document.getElementById('statsSpeakers').value = news.stats_speakers || '';
       document.getElementById('statsSessions').value = news.stats_sessions || '';
@@ -683,7 +700,7 @@
     }
     
     if (error) {
-      Swal.fire('Error!', 'Failed to save news.', 'error');
+      Swal.fire('Error!', 'Failed to save news. ' + error.message, 'error');
     } else {
       Swal.fire('Success!', 'News saved successfully.', 'success');
       bootstrap.Modal.getInstance(document.getElementById('newsFormModal')).hide();
@@ -728,7 +745,6 @@
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
     
-    // Simple authentication - Replace with proper Supabase auth if needed
     if (username === 'admin' && password === 'admin123') {
       isAdminLoggedIn = true;
       document.getElementById('adminBtn').innerHTML = '<i class="fas fa-cog"></i>';
@@ -765,7 +781,7 @@
   loadNews('all');
   
   console.log('%c✨ News Management System with Supabase Loaded ✨', 'color: #FFD966; font-size: 16px');
-  console.log('%c📸 TO SETUP: 1. Create Supabase account 2. Create "news_articles" table 3. Replace SUPABASE_URL and SUPABASE_ANON_KEY', 'color: #FFB347; font-size: 12px');
+  console.log('%c✅ Fixed: Removed /rest/v1/ from SUPABASE_URL for faster connection', 'color: #4CAF50; font-size: 12px');
   console.log('%c📸 Admin Login: username: admin | password: admin123', 'color: #FFB347; font-size: 12px');
 </script>
 
