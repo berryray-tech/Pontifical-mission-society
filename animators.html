@@ -144,6 +144,7 @@
       overflow: hidden;
       height: 100%;
       position: relative;
+      cursor: pointer;
     }
     .animator-slide:hover {
       transform: translateY(-10px);
@@ -368,6 +369,21 @@
   </div>
 </section>
 
+<!-- YOMM ANIMATORS CAROUSEL SECTION -->
+<section class="container category-section" data-aos="fade-up" data-aos-delay="200">
+  <div class="category-title">
+    <h2><i class="fas fa-church me-2"></i>YOMM ANIMATORS</h2>
+  </div>
+  <div class="glass-carousel">
+    <div class="swiper yomm-swiper">
+      <div class="swiper-wrapper" id="yommSwiperWrapper"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section>
+
 <!-- MODAL FOR DETAILS -->
 <div class="modal fade" id="leaderModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -512,8 +528,82 @@
     }
   ];
 
+  // YOMM ANIMATORS DATA
+  const yommAnimators = [
+    {
+      id: 11,
+      name: "Bro. Abalu Stephen",
+      role: "President YOMM Abuja Province",
+      parish: "St. Mary's Catholic Church, Gwagwalada",
+      phone: "+234 808 901 2345",
+      email: "abalu.stephen@pms.org",
+      bio: "Leading the Young Missionary Movement with dedication to forming young missionaries and promoting evangelization among youth.",
+      img: "https://randomuser.me/api/portraits/men/32.jpg"
+    },
+    {
+      id: 12,
+      name: "Bro. Aderinola Adewale Paul",
+      role: "YOMM Archdiocesan Secretary",
+      parish: "Holy Family Catholic Church, Kubwa",
+      phone: "+234 809 012 3456",
+      email: "adewale.paul@pms.org",
+      bio: "Coordinating YOMM activities and maintaining effective communication across all parishes.",
+      img: "https://randomuser.me/api/portraits/men/45.jpg"
+    },
+    {
+      id: 13,
+      name: "Sis. Idengeri Christiana Ehi",
+      role: "Acting Secretary YOMM Abuja Province",
+      parish: "St. Michael's Catholic Church, Karu",
+      phone: "+234 810 123 4567",
+      email: "christiana.idengeri@pms.org",
+      bio: "Managing YOMM records and ensuring smooth administrative operations for the province.",
+      img: "https://randomuser.me/api/portraits/women/38.jpg"
+    },
+    {
+      id: 14,
+      name: "Bro. Sanctus Kalu",
+      role: "P.R.O, YOMM Abuja Archdiocese",
+      parish: "St. Peter's Catholic Church, Bwari",
+      phone: "+234 811 234 5678",
+      email: "sanctus.kalu@pms.org",
+      bio: "Handling public relations and communications for YOMM, promoting missionary activities.",
+      img: "https://randomuser.me/api/portraits/men/52.jpg"
+    },
+    {
+      id: 15,
+      name: "Sis. Okoli Chinweoke Jessica",
+      role: "Archdiocesan Provost",
+      parish: "Our Lady Queen of Peace, Garki",
+      phone: "+234 812 345 6789",
+      email: "jessica.okoli@pms.org",
+      bio: "Overseeing the spiritual formation and academic coordination of YOMM members.",
+      img: "https://randomuser.me/api/portraits/women/42.jpg"
+    },
+    {
+      id: 16,
+      name: "Bro. Aleonoye Japheth Agbodesi",
+      role: "Master YOMM Abuja Province",
+      parish: "Christ the King Church, Mabushi",
+      phone: "+234 813 456 7890",
+      email: "japheth.aleonoye@pms.org",
+      bio: "Leading youth outreach programs and organizing missionary formation camps.",
+      img: "https://randomuser.me/api/portraits/men/55.jpg"
+    },
+    {
+      id: 17,
+      name: "Bro. Johnpaul Alex Odigbo",
+      role: "Mister YOMM Abuja Archdiocese",
+      parish: "St. Joseph's Church, Lugbe",
+      phone: "+234 814 567 8901",
+      email: "johnpaul.odigbo@pms.org",
+      bio: "Coordinating youth evangelization campaigns and missionary awareness programs.",
+      img: "https://randomuser.me/api/portraits/men/62.jpg"
+    }
+  ];
+
   // Combine all animators for modal lookup
-  const allAnimators = [...coordinators, ...hcaAnimators];
+  const allAnimators = [...coordinators, ...hcaAnimators, ...yommAnimators];
 
   // Function to create slide HTML with portrait image
   function createAnimatorSlide(animator) {
@@ -553,12 +643,18 @@
       hcaWrapper.innerHTML = hcaAnimators.map(c => createAnimatorSlide(c)).join('');
     }
     
+    // YOMM Animators
+    const yommWrapper = document.getElementById('yommSwiperWrapper');
+    if (yommWrapper) {
+      yommWrapper.innerHTML = yommAnimators.map(c => createAnimatorSlide(c)).join('');
+    }
+    
     // Attach event listeners after rendering
     attachEventListeners();
   }
   
   // Initialize Swipers
-  let coordSwiper, hcaSwiper;
+  let coordSwiper, hcaSwiper, yommSwiper;
   
   function initSwipers() {
     if (document.querySelector('.coordinators-swiper')) {
@@ -581,6 +677,18 @@
         autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
         navigation: { nextEl: '.hca-swiper .swiper-button-next', prevEl: '.hca-swiper .swiper-button-prev' },
         pagination: { el: '.hca-swiper .swiper-pagination', clickable: true },
+        breakpoints: { 480: { slidesPerView: 1 }, 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
+      });
+    }
+    
+    if (document.querySelector('.yomm-swiper')) {
+      yommSwiper = new Swiper('.yomm-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+        navigation: { nextEl: '.yomm-swiper .swiper-button-next', prevEl: '.yomm-swiper .swiper-button-prev' },
+        pagination: { el: '.yomm-swiper .swiper-pagination', clickable: true },
         breakpoints: { 480: { slidesPerView: 1 }, 640: { slidesPerView: 2 }, 768: { slidesPerView: 3 }, 1024: { slidesPerView: 4 } }
       });
     }
@@ -617,8 +725,8 @@
   renderCarousels();
   initSwipers();
   
-  console.log('%c✨ Animators Page Loaded | Portrait Cards with Glass Morphism & Hover Effects ✨', 'color: #FFD966; font-size: 16px');
-  console.log('%c📸 To add your own images, replace the "img" URLs in the coordinators and hcaAnimators arrays.', 'color: #FFB347; font-size: 12px');
+  console.log('%c✨ Animators Page Loaded | Coordinators, HCA & YOMM Animators | Portrait Cards with Glass Morphism ✨', 'color: #FFD966; font-size: 16px');
+  console.log('%c📸 To add your own images, replace the "img" URLs in the coordinators, hcaAnimators, and yommAnimators arrays.', 'color: #FFB347; font-size: 12px');
 </script>
 
 </body>
