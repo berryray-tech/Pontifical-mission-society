@@ -373,6 +373,118 @@
     .glass-news-card:hover { transform: translateY(-8px); border-color: #FFD966; }
     .news-badge { background: linear-gradient(135deg, #FFD966, #FFB347); padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: #1e2f38; }
 
+    /* Pope's Yearly Intentions Button Styling */
+    .pope-intentions-wrapper {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      z-index: 100;
+    }
+    .pope-intentions-btn {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      animation: pulseGlow 2s infinite;
+    }
+    .pope-intentions-btn i {
+      font-size: 1.8rem;
+      color: #1e2f38;
+      transition: transform 0.3s;
+    }
+    .pope-intentions-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 30px rgba(255,217,102,0.5);
+    }
+    .pope-intentions-btn:hover i {
+      transform: rotate(5deg);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 5px 20px rgba(255,217,102,0.3); }
+      50% { box-shadow: 0 5px 30px rgba(255,217,102,0.6); }
+    }
+    
+    /* Hover Popup Card */
+    .pope-popup-card {
+      position: absolute;
+      bottom: 80px;
+      right: 0;
+      width: 320px;
+      background: rgba(20, 40, 48, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 1.5rem;
+      border: 1px solid #FFD966;
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px) scale(0.95);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      z-index: 101;
+    }
+    .pope-intentions-wrapper:hover .pope-popup-card {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+    .pope-popup-card h4 {
+      color: #FFD966;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+    .pope-popup-card p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .pope-intention-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem 0;
+    }
+    .pope-intention-list li {
+      font-size: 0.75rem;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid rgba(255,217,102,0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pope-intention-list li i {
+      color: #FFD966;
+      font-size: 0.6rem;
+    }
+    .download-pdf-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #FFD966, #FFB347);
+      border: none;
+      padding: 0.8rem;
+      border-radius: 2rem;
+      color: #1e2f38;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .download-pdf-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,217,102,0.4);
+    }
+
     /* Image Detail Modal */
     .image-modal-content {
       background: rgba(20, 40, 48, 0.98); backdrop-filter: blur(20px);
@@ -391,6 +503,7 @@
       .vatican-logo-left img, .vatican-logo-right img { width: 40px; height: 40px; }
       .door-handle { width: 45px; height: 45px; font-size: 1.5rem; }
       .door-welcome-text { font-size: 0.8rem; white-space: nowrap; padding: 0.5rem 1rem; }
+      .pope-popup-card { width: 280px; right: -10px; }
     }
   </style>
 </head>
@@ -453,6 +566,34 @@
       </div>
     </div>
     <div class="timer-progress"><div class="timer-progress-bar" id="timerBar"></div></div>
+  </div>
+
+  <!-- POPE'S YEARLY INTENTIONS BUTTON WITH HOVER POPUP AND SIMPLE PDF REDIRECT -->
+  <div class="pope-intentions-wrapper">
+    <div class="pope-intentions-btn">
+      <i class="fas fa-praying-hands"></i>
+    </div>
+    <div class="pope-popup-card">
+      <h4><i class="fas fa-pope me-2"></i>Pope's Yearly Intentions</h4>
+      <p>The Holy Father's prayer intentions for the current year</p>
+      <ul class="pope-intention-list">
+        <li><i class="fas fa-circle"></i> <strong>January:</strong> For the gift of peace in the world</li>
+        <li><i class="fas fa-circle"></i> <strong>February:</strong> For vocations to priesthood and religious life</li>
+        <li><i class="fas fa-circle"></i> <strong>March:</strong> For Christians persecuted for their faith</li>
+        <li><i class="fas fa-circle"></i> <strong>April:</strong> For the role of women in the Church</li>
+        <li><i class="fas fa-circle"></i> <strong>May:</strong> For the formation of religious and seminarians</li>
+        <li><i class="fas fa-circle"></i> <strong>June:</strong> For the abolition of torture</li>
+        <li><i class="fas fa-circle"></i> <strong>July:</strong> For the pastoral care of the sick</li>
+        <li><i class="fas fa-circle"></i> <strong>August:</strong> For political leaders</li>
+        <li><i class="fas fa-circle"></i> <strong>September:</strong> For the cry of the earth</li>
+        <li><i class="fas fa-circle"></i> <strong>October:</strong> For a missionary Church</li>
+        <li><i class="fas fa-circle"></i> <strong>November:</strong> For children who suffer</li>
+        <li><i class="fas fa-circle"></i> <strong>December:</strong> For volunteers in mission territories</li>
+      </ul>
+      <button class="download-pdf-btn" id="downloadIntentionsBtn">
+        <i class="fas fa-download"></i> Download PDF
+      </button>
+    </div>
   </div>
 
   <!-- NEWS BANNER -->
@@ -522,6 +663,24 @@
 <script>
   AOS.init({ once: true, offset: 80, duration: 700 });
 
+  // ============================================
+  // PDF DOWNLOAD - SIMPLE REDIRECT TO YOUR PDF FILE
+  // ============================================
+  // IMPORTANT: Replace the path below with your actual PDF file location
+  // Examples:
+  // - If PDF is in the same folder: 'pope-intentions.pdf'
+  // - If PDF is in a subfolder: 'pdf/pope-intentions.pdf'
+  // - If using an external URL: 'https://example.com/pope-intentions.pdf'
+  const PDF_FILE_PATH = 'pdf/popes-yearly-intentions.pdf'; // 👈 CHANGE THIS TO YOUR PDF PATH
+  
+  function downloadIntentionsPDF() {
+    // Open the PDF in a new tab (works for both local and external files)
+    window.open(PDF_FILE_PATH, '_blank');
+  }
+
+  // Attach download event listener to the button
+  document.getElementById('downloadIntentionsBtn')?.addEventListener('click', downloadIntentionsPDF);
+
   // Slide Data with detailed information for each image - COMPLETE 10 SLIDES
   const slides = [
     { 
@@ -552,56 +711,56 @@
       img: "Images/archbishop kaigma.jpg", 
       title: "His Grace Most Rev. Dr. Ignatius Kaigama", 
       desc: "Catholic Archbishop Of Abuja Archdiocese", 
-      fullDescription: "Archbishop Ignatius Kaigama is the Metropolitan Archbishop of Abuja. He is a respected leader, peace advocate, and shepherd of the Catholic faithful in the Federal Capital Territory. His leadership has been instrumental in promoting interreligious dialogue, youth development, and missionary work across the archdiocese.", 
-      scripture: "Jeremiah 3:15 - 'And I will give you shepherds after my own heart, who will feed you with knowledge and understanding.'", 
+      fullDescription: "Archbishop Ignatius Kaigama is the Metropolitan Archbishop of Abuja. He is a respected leader, peace advocate, and shepherd of the Catholic faithful in the Federal Capital Territory.", 
+      scripture: "Jeremiah 3:15 - 'And I will give you shepherds after my own heart...'", 
       date: "Installed: November 2019" 
     },
     { 
       img: "Images/his lord.png", 
       title: "His Lordship Most Rev. Dr. Anselm Umoren MSP", 
       desc: "Catholic Auxiliary Bishop Of Abuja", 
-      fullDescription: "Bishop Anselm Umoren serves as the Auxiliary Bishop of Abuja Archdiocese. A member of the Missionary Society of St. Paul (MSP), he is dedicated to evangelization, pastoral care, and the spiritual formation of the faithful. His commitment to missionary work continues to inspire many in the archdiocese.", 
-      scripture: "Acts 1:8 - 'But you will receive power when the Holy Spirit comes on you; and you will be my witnesses.'", 
+      fullDescription: "Bishop Anselm Umoren serves as the Auxiliary Bishop of Abuja Archdiocese. A member of the Missionary Society of St. Paul (MSP), he is dedicated to evangelization.", 
+      scripture: "Acts 1:8 - 'But you will receive power when the Holy Spirit comes on you...'", 
       date: "Consecrated: March 2024" 
     },
     { 
       img: "Images/father.png", 
       title: "Rev. Fr. Samson Adachabo", 
       desc: "Pontifical Mission Society Director", 
-      fullDescription: "Rev. Fr. Samson Adachabo is the current Director of the Pontifical Mission Societies in Abuja Archdiocese. He leads the coordination of all missionary activities, including the Holy Childhood Association (HCA), the Society for the Propagation of the Faith (SPF), the Pontifical Mission Union (PMU), and the Young Missionary Movement (YOMM).", 
-      scripture: "Romans 10:14-15 - 'How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard?'", 
+      fullDescription: "Rev. Fr. Samson Adachabo is the current Director of the Pontifical Mission Societies in Abuja Archdiocese. He leads the coordination of all missionary activities.", 
+      scripture: "Romans 10:14-15 - 'How, then, can they call on the one they have not believed in?'", 
       date: "Current PMS Director" 
     },
     { 
       img: "Images/16.jpeg", 
       title: "Rev. Fr. Hilary Ugwuanyi", 
       desc: "P.O.F Coordinator/YOMM Chaplain", 
-      fullDescription: "Rev. Fr. Hilary Ugwuanyi serves as the Propagation of the Faith (POF) Coordinator and Chaplain for the Young Missionary Movement (YOMM) in Abuja Archdiocese. He is passionate about forming young people as missionary disciples and promoting the universal call to mission.", 
-      scripture: "1 Timothy 4:12 - 'Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity.'", 
+      fullDescription: "Rev. Fr. Hilary Ugwuanyi serves as the Propagation of the Faith (POF) Coordinator and Chaplain for the Young Missionary Movement (YOMM).", 
+      scripture: "1 Timothy 4:12 - 'Don't let anyone look down on you because you are young...'", 
       date: "YOMM Chaplain | POF Coordinator" 
     },
     { 
       img: "Images/4.jpeg", 
       title: "Brother Charles Moses", 
       desc: "YOMM National Coordinator", 
-      fullDescription: "Brother Charles serves as the National Coordinator of the Young Missionary Movement (YOMM) in Nigeria. He oversees the formation and activities of young missionaries across the nation, organizing national congresses, formation workshops, and missionary outreaches.", 
-      scripture: "Psalm 96:3 - 'Declare his glory among the nations, his marvelous deeds among all peoples.'", 
+      fullDescription: "Brother Charles serves as the National Coordinator of the Young Missionary Movement (YOMM) in Nigeria.", 
+      scripture: "Psalm 96:3 - 'Declare his glory among the nations...'", 
       date: "YOMM National Coordinator" 
     },
     { 
       img: "Images/17.jpeg", 
       title: "Edith Ibeh Ada", 
       desc: "Garki Deanery Holy Childhood Association Coordinator", 
-      fullDescription: "Edith Ibeh Ada serves as the Holy Childhood Association (HCA) Coordinator for Garki Deanery in Abuja Archdiocese. She is dedicated to forming children as young missionaries who pray, share, and support their peers in mission territories.", 
-      scripture: "Matthew 19:14 - 'Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these.'", 
+      fullDescription: "Edith Ibeh Ada serves as the Holy Childhood Association (HCA) Coordinator for Garki Deanery in Abuja Archdiocese.", 
+      scripture: "Matthew 19:14 - 'Let the little children come to me...'", 
       date: "HCA Coordinator" 
     },
     { 
       img: "Images/sis.jpeg", 
       title: "Sr Mary Lawrentine Amaefule, IHM",
       desc: "HCA Archdiocesan Coordinator", 
-      fullDescription: "Sr. Mary Lawrentine Amaefule, IHM, serves as the Holy Childhood Association (HCA) Archdiocesan Coordinator in Abuja. Together with Rev. Sr. Angelina Ahaiwe, she coordinates the activities of over 1,000 child missionaries across the archdiocese, forming them as young missionaries who pray and share with children in mission lands.", 
-      scripture: "Matthew 25:40 - 'Truly I tell you, whatever you did for one of the least of these brothers and sisters of mine, you did for me.'", 
+      fullDescription: "Sr. Mary Lawrentine Amaefule, IHM, serves as the Holy Childhood Association (HCA) Archdiocesan Coordinator in Abuja.", 
+      scripture: "Matthew 25:40 - 'Whatever you did for one of the least of these...'", 
       date: "HCA Archdiocesan Coordinator" 
     }
   ];
@@ -722,4 +881,3 @@
 </style>
 </body>
 </html>
-```
