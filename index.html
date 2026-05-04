@@ -373,12 +373,12 @@
     .glass-news-card:hover { transform: translateY(-8px); border-color: #FFD966; }
     .news-badge { background: linear-gradient(135deg, #FFD966, #FFB347); padding: 0.3rem 1rem; border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: #1e2f38; }
 
-    /* Pope's Yearly Intentions Button Styling */
+    /* Pope's Yearly Intentions Button Styling - HIGHEST Z-INDEX */
     .pope-intentions-wrapper {
       position: fixed;
       bottom: 100px;
       right: 30px;
-      z-index: 100;
+      z-index: 9999;
     }
     .pope-intentions-btn {
       width: 60px;
@@ -393,6 +393,7 @@
       transition: all 0.3s ease;
       position: relative;
       animation: pulseGlow 2s infinite;
+      z-index: 9999;
     }
     .pope-intentions-btn i {
       font-size: 1.8rem;
@@ -411,7 +412,7 @@
       50% { box-shadow: 0 5px 30px rgba(255,217,102,0.6); }
     }
     
-    /* Hover Popup Card */
+    /* Hover Popup Card - HIGHEST Z-INDEX */
     .pope-popup-card {
       position: absolute;
       bottom: 80px;
@@ -427,7 +428,8 @@
       transform: translateY(20px) scale(0.95);
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      z-index: 101;
+      z-index: 10000;
+      pointer-events: auto;
     }
     .pope-intentions-wrapper:hover .pope-popup-card {
       opacity: 1;
@@ -568,7 +570,7 @@
     <div class="timer-progress"><div class="timer-progress-bar" id="timerBar"></div></div>
   </div>
 
-  <!-- POPE'S YEARLY INTENTIONS BUTTON WITH HOVER POPUP AND SIMPLE PDF REDIRECT -->
+  <!-- POPE'S YEARLY INTENTIONS BUTTON WITH HIGHEST Z-INDEX -->
   <div class="pope-intentions-wrapper">
     <div class="pope-intentions-btn">
       <i class="fas fa-praying-hands"></i>
@@ -604,7 +606,7 @@
         <span style="color: #FFE2A4; font-weight: 600;">🔥 Youth Fire Conference 2026</span>
         <span style="font-size: 0.9rem;">March 28-30 | Powerful speakers, life-changing worship!</span>
       </div>
-      <div style="background: rgba(255,217,102,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+      <div style="background: rgba(255,217,102,0.2); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content; center;">
         <i class="fas fa-arrow-right" style="color: #FFD966;"></i>
       </div>
     </div>
